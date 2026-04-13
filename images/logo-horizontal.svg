@@ -1,0 +1,46 @@
+<svg width="480" height="80" viewBox="0 0 480 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="iconFocal" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#BA7517"/>
+      <stop offset="60%"  stop-color="#EF9F27" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#EF9F27" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- White background -->
+  <rect width="480" height="80" fill="#ffffff"/>
+
+  <!-- Mini lens + rays -->
+  <!-- Incoming rays -->
+  <line x1="16" y1="32" x2="44" y2="32" stroke="#5DCAA5" stroke-width="1.1" opacity="0.8"/>
+  <line x1="16" y1="40" x2="44" y2="40" stroke="#5DCAA5" stroke-width="1.5" opacity="0.9"/>
+  <line x1="16" y1="48" x2="44" y2="48" stroke="#5DCAA5" stroke-width="1.1" opacity="0.8"/>
+
+  <!-- Lens -->
+  <path d="M60 20 Q44 30 44 40 Q44 50 60 60" fill="none" stroke="#1D9E75" stroke-width="1.6" opacity="0.9"/>
+  <path d="M60 20 Q76 30 76 40 Q76 50 60 60" fill="none" stroke="#1D9E75" stroke-width="1.6" opacity="0.9"/>
+  <path d="M60 24 Q50 32 50 40" fill="none" stroke="#5DCAA5" stroke-width="0.7" opacity="0.3"/>
+
+  <!-- Refracted rays -->
+  <line x1="76" y1="32" x2="96"  y2="40" stroke="#5DCAA5" stroke-width="1.1" opacity="0.75"/>
+  <line x1="76" y1="40" x2="96"  y2="40" stroke="#5DCAA5" stroke-width="1.5" opacity="0.85"/>
+  <line x1="76" y1="48" x2="96"  y2="40" stroke="#5DCAA5" stroke-width="1.1" opacity="0.75"/>
+
+  <!-- Focal dot -->
+  <circle cx="96" cy="40" r="9"   fill="url(#iconFocal)" opacity="0.45"/>
+  <circle cx="96" cy="40" r="4"   fill="url(#iconFocal)" opacity="0.65"/>
+  <circle cx="96" cy="40" r="2.5" fill="#BA7517"/>
+
+  <!-- Vertical divider -->
+  <line x1="114" y1="18" x2="114" y2="62" stroke="#1D9E75" stroke-width="0.5" opacity="0.35"/>
+
+  <!-- Wordmark -->
+  <text x="126" y="38"
+    font-family="Optima, 'Palatino Linotype', 'Book Antiqua', serif"
+    font-size="22" font-weight="600" letter-spacing="5"
+    fill="#085041">SYNAPSE</text>
+  <text x="126" y="55"
+    font-family="Optima, 'Palatino Linotype', 'Book Antiqua', serif"
+    font-size="10" font-weight="400" letter-spacing="5"
+    fill="#0F6E56" opacity="0.75">OPTICS</text>
+</svg>
