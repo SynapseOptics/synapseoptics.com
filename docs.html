@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation | LensHH-LT | Synapse Optics</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Synapse Optics</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="docs.html">Documentation</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="buy.html">Buy</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <ul>
+        <li><a href="#getting-started">Getting Started</a></li>
+        <li><a href="#activation">Activation</a></li>
+        <li><a href="#lens-editor">Lens Editor</a></li>
+        <li><a href="#analysis">Analysis</a></li>
+        <li><a href="#optimization">Optimization</a></li>
+        <li><a href="#file-formats">File Formats</a></li>
+        <li><a href="#cli">Command Line</a></li>
+        <li><a href="#support">Support</a></li>
+      </ul>
+    </aside>
+
+    <main class="docs-content">
+      <h2 id="getting-started">Getting Started</h2>
+      <p>Download LensHH-LT and run the installer. The application requires Windows 10 or later with .NET 8 runtime.</p>
+      <h3>System Requirements</h3>
+      <ul>
+        <li>Windows 10/11 (64-bit)</li>
+        <li>.NET 8 Runtime</li>
+        <li>4 GB RAM minimum, 8 GB recommended</li>
+        <li>Internet connection for activation (one-time)</li>
+      </ul>
+
+      <h2 id="activation">Activation</h2>
+      <h3>Free Trial</h3>
+      <p>To start a 45-day free trial:</p>
+      <ol>
+        <li>Open LensHH-LT</li>
+        <li>Go to <strong>Help &rarr; Start Free Trial</strong></li>
+        <li>Enter your email address</li>
+        <li>Check your email for a 6-digit activation code</li>
+        <li>Enter the code in the application</li>
+      </ol>
+      <p>The trial is full-featured with no limitations. One trial per email address, valid on one machine.</p>
+
+      <h3>License Activation</h3>
+      <p>After purchasing a license:</p>
+      <ol>
+        <li>Go to <strong>Help &rarr; Activate License</strong></li>
+        <li>Enter your license key (format: <code>LHLT-XXXX-XXXX-XXXX-XXXX</code>)</li>
+        <li>Click Activate</li>
+      </ol>
+      <p>Each license can be activated on up to 2 machines. To move a license, use <strong>Help &rarr; Deactivate This Machine</strong> on the old machine first.</p>
+
+      <h3>Offline Activation</h3>
+      <p>For air-gapped machines without internet access, use the CLI on any connected machine:</p>
+      <pre><code>license fetch-token LHLT-XXXX-XXXX-XXXX-XXXX &lt;machineId&gt; token.json</code></pre>
+      <p>Transfer <code>token.json</code> to the target machine, then:</p>
+      <pre><code>license offline token.json</code></pre>
+
+      <h2 id="lens-editor">Lens Editor</h2>
+      <p>The lens editor displays the optical system as a spreadsheet-style surface table. Each row represents one surface.</p>
+      <h3>Surface Properties</h3>
+      <ul>
+        <li><strong>Radius</strong> &mdash; radius of curvature (mm). Use <code>Infinity</code> for flat surfaces.</li>
+        <li><strong>Thickness</strong> &mdash; distance to the next surface (mm).</li>
+        <li><strong>Material</strong> &mdash; glass name (e.g., N-BK7) or MIRROR for reflective surfaces.</li>
+        <li><strong>Semi-Diameter</strong> &mdash; clear aperture half-diameter (mm).</li>
+        <li><strong>Conic</strong> &mdash; conic constant (0 = sphere, -1 = paraboloid).</li>
+      </ul>
+
+      <h2 id="analysis">Analysis</h2>
+      <p>Available under the <strong>Analysis</strong> menu:</p>
+      <ul>
+        <li>Paraxial data (EFL, BFL, F/#, magnification, pupils)</li>
+        <li>FFT MTF (vs. frequency, vs. field, vs. focus)</li>
+        <li>Geometric MTF</li>
+        <li>Spot diagrams</li>
+        <li>Ray fans and OPD fans</li>
+        <li>Distortion and field curvature</li>
+        <li>Seidel aberration coefficients</li>
+        <li>Relative illumination</li>
+        <li>Lateral color and chromatic focal shift</li>
+        <li>Wavefront maps</li>
+        <li>FFT PSF</li>
+        <li>System data</li>
+      </ul>
+
+      <h2 id="optimization">Optimization</h2>
+      <h3>Local Optimization</h3>
+      <p>Damped least-squares (Levenberg-Marquardt) optimizer. Set variables on surfaces, define a merit function, and run <strong>Optimization &rarr; Local Optimization</strong>.</p>
+
+      <h3>Multistart Global Search</h3>
+      <p>Randomizes variables around the current solution and runs many short local optimizations in parallel. Finds the best result across all trials.</p>
+
+      <h3>Genetic Algorithm</h3>
+      <p>Evolutionary optimizer for exploring the design space when far from a good solution.</p>
+
+      <h3>Synthesis by Splitting</h3>
+      <p>Automatically splits high-aberration elements and searches for optimal glass combinations. Includes pre-glass multistart, glass trials, and post-glass multistart phases.</p>
+
+      <h2 id="file-formats">File Formats</h2>
+      <h3>Native Format (.lhlt)</h3>
+      <p>JSON-based format that preserves all data including merit function, variables, constraints, and configurations.</p>
+
+      <h3>Import</h3>
+      <ul>
+        <li>Zemax (.zmx) &mdash; surfaces, aspherics, conics, fields, wavelengths</li>
+        <li>Code V (.seq) &mdash; surfaces, aspherics, conics, fields, wavelengths</li>
+        <li>OSLO (.len) &mdash; surfaces, aspherics, conics, wavelengths</li>
+        <li>Optalix (.otx) &mdash; surfaces, aspherics, conics, fields, wavelengths</li>
+      </ul>
+
+      <h3>Export</h3>
+      <p>Export to all supported formats via <strong>File &rarr; Export As</strong>.</p>
+
+      <h2 id="cli">Command Line Interface</h2>
+      <p>LensHH-LT includes a CLI for scripting and batch operations:</p>
+      <pre><code>lenshh open mylens.lhlt
+paraxial
+fft-mtf
+spot
+optimize 500
+save result.lhlt</code></pre>
+
+      <h2 id="support">Support</h2>
+      <p>Email: <a href="mailto:support@synapseoptics.com">support@synapseoptics.com</a></p>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2026 Synapse Optics. All rights reserved. &nbsp;|&nbsp;
+      <a href="mailto:support@synapseoptics.com">support@synapseoptics.com</a>
+    </p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educational License | Synapse Optics</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Synapse Optics</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="docs.html">Documentation</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="buy.html">Buy</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="section" style="text-align: center;">
+    <h1 style="font-size: 2.2rem; margin-bottom: 12px;">Free Educational License</h1>
+    <p style="color: var(--color-text-light); margin-bottom: 48px; font-size: 1.1rem;">
+      Full-featured access for students and academics. Valid for 2 years, renewable once.
+    </p>
+
+    <div class="form-card">
+      <form id="edu-form" onsubmit="return submitEduForm(event)">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" required placeholder="Jane Smith">
+        </div>
+        <div class="form-group">
+          <label for="institution">Institution</label>
+          <input type="text" id="institution" required placeholder="MIT, Stanford, etc.">
+        </div>
+        <div class="form-group">
+          <label for="email">Institutional Email</label>
+          <input type="email" id="email" required placeholder="you@university.edu">
+        </div>
+        <p style="font-size: 0.85rem; color: var(--color-text-light); margin-bottom: 20px;">
+          You must use your institutional email address (.edu, .ac.uk, etc.)
+        </p>
+        <button type="submit" class="btn btn-primary" style="width: 100%;" id="edu-submit">
+          Request License
+        </button>
+      </form>
+      <div id="edu-message" class="form-message"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2026 Synapse Optics. All rights reserved. &nbsp;|&nbsp;
+      <a href="mailto:support@synapseoptics.com">support@synapseoptics.com</a>
+    </p>
+  </footer>
+
+  <script>
+    const API_BASE = 'https://synapseoptics-license.javier-ruiz.workers.dev';
+
+    async function submitEduForm(e) {
+      e.preventDefault();
+      const btn = document.getElementById('edu-submit');
+      const msg = document.getElementById('edu-message');
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+      msg.className = 'form-message';
+      msg.style.display = 'none';
+
+      try {
+        const resp = await fetch(`${API_BASE}/education`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: document.getElementById('name').value.trim(),
+            institution: document.getElementById('institution').value.trim(),
+            email: document.getElementById('email').value.trim()
+          })
+        });
+        const data = await resp.json();
+
+        if (resp.ok) {
+          msg.className = 'form-message success';
+          msg.textContent = data.message || 'License sent! Check your email.';
+          msg.style.display = 'block';
+          document.getElementById('edu-form').reset();
+        } else {
+          msg.className = 'form-message error';
+          msg.textContent = data.error || 'Request failed. Please try again.';
+          msg.style.display = 'block';
+        }
+      } catch (err) {
+        msg.className = 'form-message error';
+        msg.textContent = 'Connection error. Please try again later.';
+        msg.style.display = 'block';
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Request License';
+      return false;
+    }
+  </script>
+
+</body>
+</html>
