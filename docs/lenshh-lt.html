@@ -3,30 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Overview | LensHH-LT | Synapse Optics</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>LensHH-LT Documentation | Synapse Optics</title>
+  <link rel="stylesheet" href="/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <nav class="nav">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo">
-        <img src="images/logo-icon.svg" alt="" style="height: 36px; width: 36px;">
+      <a href="/" class="nav-logo">
+        <img src="/images/logo-icon.svg" alt="" style="height: 36px; width: 36px;">
         Synapse Optics
       </a>
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="docs.html">Overview</a></li>
-        <li><a href="education.html">Education</a></li>
-        <li><a href="buy.html">Buy</a></li>
-        <li><a href="download.html">Download</a></li>
+        <li><a href="/products.html">Products</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/docs/lenshh-lt.html">Docs</a></li>
+        <li><a href="/education.html">Education</a></li>
       </ul>
     </div>
   </nav>
 
   <div class="docs-layout">
     <aside class="docs-sidebar">
+      <p style="font-weight: 600; padding: 6px 12px; color: var(--color-text);">LensHH-LT</p>
       <ul>
         <li><a href="#getting-started">Getting Started</a></li>
         <li><a href="#activation">Activation</a></li>
@@ -35,6 +35,7 @@
         <li><a href="#optimization">Optimization</a></li>
         <li><a href="#file-formats">File Formats</a></li>
         <li><a href="#cli">Command Line</a></li>
+        <li><a href="#full-reference">Full reference (PDF)</a></li>
         <li><a href="#support">Support</a></li>
       </ul>
     </aside>
@@ -45,7 +46,7 @@
       <h3>System Requirements</h3>
       <ul>
         <li>Windows 10/11, Linux, or macOS (64-bit)</li>
-        <li>.NET 8 Runtime</li>
+        <li>.NET 8 Runtime (bundled with the Windows installer and Linux AppImage)</li>
         <li>4 GB RAM minimum, 8 GB recommended</li>
         <li>Internet connection for activation (one-time). <a href="#activation">Offline activation</a> available for air-gapped machines.</li>
       </ul>
@@ -112,11 +113,14 @@
       <h3>Multistart Global Search</h3>
       <p>Randomizes variables around the current solution and runs many short local optimizations in parallel. Finds the best result across all trials.</p>
 
-      <h3>Genetic Algorithm</h3>
-      <p>Evolutionary optimizer for exploring the design space when far from a good solution.</p>
+      <h3>Basin Hopping</h3>
+      <p>Hooke-Jeeves direct search combined with LM polishing — good when the topology is fixed but the local minimum needs to be escaped.</p>
 
-      <h3>Synthesis by Splitting</h3>
-      <p>Automatically splits high-aberration elements and searches for optimal glass combinations. Includes pre-glass multistart, glass trials, and post-glass multistart phases.</p>
+      <h3>Synthesis by Saddle-Point Construction</h3>
+      <p>Grows the design one element at a time by finding saddle points in merit-vs-curvature space. Can insert single elements or cemented doublets, restricted to either side of the stop. Turns a single lens into a multi-element system in one run.</p>
+
+      <h3>Split Element &amp; Search Best Asphere Surface</h3>
+      <p>Targeted topology growth: split the highest-aberration element into two glasses, or aspherize the surface that gives the most merit improvement.</p>
 
       <h2 id="file-formats">File Formats</h2>
       <h3>Native Format (.lhlt)</h3>
@@ -141,6 +145,18 @@ fft-mtf
 spot
 optimize 500
 save result.lhlt</code></pre>
+
+      <h2 id="full-reference">Full Reference</h2>
+      <p>
+        The complete user guide ships with the installer as a searchable
+        HTML help bundle and a PDF (~150 pages). Open it from
+        <strong>Help &rarr; User Guide</strong> in the application, or
+        download the latest version directly:
+      </p>
+      <p>
+        <!-- TODO: link to the PDF artifact once published with each release. -->
+        <a href="https://github.com/SynapseOptics/SynapseLensHH-LT/releases/latest" class="btn btn-secondary">Latest release on GitHub &rarr;</a>
+      </p>
 
       <h2 id="support">Support</h2>
       <p>Email: <a href="mailto:support@synapseoptics.com">support@synapseoptics.com</a></p>

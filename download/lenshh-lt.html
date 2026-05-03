@@ -4,22 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Download LensHH-LT | Synapse Optics</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <nav class="nav">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo">
-        <img src="images/logo-icon.svg" alt="" style="height: 36px; width: 36px;">
+      <a href="/" class="nav-logo">
+        <img src="/images/logo-icon.svg" alt="" style="height: 36px; width: 36px;">
         Synapse Optics
       </a>
       <ul class="nav-links">
-        <li><a href="docs.html">Overview</a></li>
-        <li><a href="education.html">Education</a></li>
-        <li><a href="buy.html">Buy</a></li>
-        <li><a href="download.html">Download</a></li>
+        <li><a href="/products.html">Products</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/docs/lenshh-lt.html">Docs</a></li>
+        <li><a href="/education.html">Education</a></li>
       </ul>
     </div>
   </nav>
@@ -36,17 +36,17 @@
       <div class="feature-card" style="text-align: center; padding: 36px;">
         <h3 style="font-size: 1.3rem; margin-bottom: 4px;">Windows</h3>
         <p style="margin-bottom: 20px;">Windows 10/11 (64-bit)</p>
-        <!-- TODO: Replace with actual release URL -->
+        <!-- TODO: Replace with the public release URL once SynapseLensHH-LT is published. -->
         <a href="https://github.com/SynapseOptics/SynapseLensHH-LT/releases/latest" class="btn btn-primary" style="width: 100%;">Download Installer</a>
-        <p style="margin-top: 12px; font-size: 0.85rem; color: var(--color-text-light);">.msi installer &middot; Requires .NET 8 Runtime</p>
+        <p style="margin-top: 12px; font-size: 0.85rem; color: var(--color-text-light);">Inno Setup installer &middot; Bundles .NET 8 runtime</p>
       </div>
 
       <!-- Linux -->
       <div class="feature-card" style="text-align: center; padding: 36px;">
         <h3 style="font-size: 1.3rem; margin-bottom: 4px;">Linux</h3>
         <p style="margin-bottom: 20px;">Ubuntu, Fedora, Arch (64-bit)</p>
-        <a href="https://github.com/SynapseOptics/SynapseLensHH-LT/releases/latest" class="btn btn-primary" style="width: 100%;">Download .tar.gz</a>
-        <p style="margin-top: 12px; font-size: 0.85rem; color: var(--color-text-light);">Portable archive &middot; Requires .NET 8 Runtime</p>
+        <a href="https://github.com/SynapseOptics/SynapseLensHH-LT/releases/latest" class="btn btn-primary" style="width: 100%;">Download AppImage</a>
+        <p style="margin-top: 12px; font-size: 0.85rem; color: var(--color-text-light);">Portable AppImage &middot; Bundles .NET 8 runtime</p>
       </div>
 
       <!-- macOS -->
@@ -62,11 +62,11 @@
     <div style="max-width: 600px; margin: 48px auto 0; text-align: left;">
       <h3 style="margin-bottom: 12px;">Build from Source</h3>
       <p style="color: var(--color-text-light); margin-bottom: 12px;">
-        LensHH-LT GUI, CLI, API, and MCP server are open source under the MIT license.
-        To build from source on any platform:
+        The LensHH-LT GUI, CLI, API, and MCP server are open source under the MIT license.
+        To build on any platform:
       </p>
       <pre style="background: var(--color-code-bg); padding: 16px; border-radius: 8px; font-size: 0.9rem;"><code>git clone https://github.com/SynapseOptics/SynapseLensHH-LT.git
-cd LensHH-LT
+cd SynapseLensHH-LT
 dotnet build src/LensHH.App/LensHH.App.csproj
 dotnet run --project src/LensHH.App/LensHH.App.csproj</code></pre>
       <p style="color: var(--color-text-light); font-size: 0.9rem;">
