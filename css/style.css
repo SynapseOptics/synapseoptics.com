@@ -532,7 +532,208 @@ img { max-width: 100%; height: auto; }
   padding: 0;
 }
 
-/* ── Footer ───────────────────────────────────────────────────────────────── */
+/* ── Case Studies ─────────────────────────────────────────────────────────── */
+.case-study {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+.case-study-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-bottom: 12px;
+}
+
+.case-study h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.case-study .lede {
+  font-size: 1.15rem;
+  color: var(--color-text-light);
+  margin-bottom: 32px;
+}
+
+.case-study h2 {
+  font-size: 1.4rem;
+  margin: 48px 0 12px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border);
+}
+
+.case-study h2:first-of-type { border-top: none; padding-top: 0; }
+
+.case-study h3 {
+  font-size: 1.1rem;
+  margin: 24px 0 10px;
+}
+
+.case-study p,
+.case-study li {
+  color: var(--color-text);
+  margin-bottom: 12px;
+}
+
+.case-study ul, .case-study ol { padding-left: 24px; margin-bottom: 16px; }
+
+/* Headline-numbers callout: 1 BK7 lens → 3 elements, merit ÷210 */
+.case-study-headline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 24px 0 32px;
+  padding: 24px;
+  border-radius: 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.case-study-headline .stat {
+  text-align: center;
+}
+
+.case-study-headline .stat-value {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.case-study-headline .stat-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  margin-top: 4px;
+}
+
+/* Before/after image grid */
+.image-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0 24px;
+}
+
+.image-grid figure {
+  margin: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.image-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.image-grid figcaption {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.image-single {
+  margin: 16px 0 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.image-single img { display: block; width: 100%; height: auto; }
+
+.image-single figcaption {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+/* Trajectory / settings table */
+.case-study table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 24px;
+  font-size: 0.95rem;
+}
+
+.case-study th,
+.case-study td {
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.case-study th {
+  background: var(--color-surface);
+  font-weight: 600;
+}
+
+.case-study td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.case-study code {
+  background: var(--color-code-bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* CTA block at the foot of a case study */
+.case-study-cta {
+  margin-top: 48px;
+  padding: 28px 32px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.case-study-cta h3 { font-size: 1.2rem; margin-bottom: 8px; }
+.case-study-cta p { color: var(--color-text-light); margin-bottom: 16px; }
+.case-study-cta .btn { margin: 0 4px; }
+
+/* Hero teaser on the product page that links into a case study */
+.case-tease {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-width: 900px;
+  margin: 32px auto 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 12px;
+  background: var(--color-bg);
+}
+.case-tease figure { margin: 0; }
+.case-tease figure img { display: block; width: 100%; border-radius: 6px; }
+.case-tease figcaption {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  margin-top: 4px;
+}
+.case-tease-link {
+  display: block;
+  text-align: center;
+  margin: 16px auto 32px;
+  font-weight: 600;
+}
+
+/* Footer ───────────────────────────────────────────────────────────────── */
 .footer {
   border-top: 1px solid var(--color-border);
   padding: 32px 24px;
@@ -554,4 +755,8 @@ img { max-width: 100%; height: auto; }
   .nav-links { gap: 16px; }
   .product-grid { grid-template-columns: 1fr; }
   .about-section h1 { font-size: 1.8rem; }
+  .image-grid { grid-template-columns: 1fr; }
+  .case-tease { grid-template-columns: 1fr; }
+  .case-study h1 { font-size: 1.7rem; }
+  .case-study-headline .stat-value { font-size: 1.4rem; }
 }

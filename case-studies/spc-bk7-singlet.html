@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>From a single BK7 lens to a 3-element design — SPC case study | Synapse Optics</title>
+  <meta name="description" content="LensHH-LT case study: synthesis by saddle-point construction grows a single biconvex BK7 lens into a 3-element design, dropping the merit function ~210× in two clicks.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/images/logo-icon.svg" alt="" style="height: 36px; width: 36px;">
+        Synapse Optics
+      </a>
+      <ul class="nav-links">
+        <li><a href="/products.html">Products</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/case-studies.html">Case Studies</a></li>
+        <li><a href="/docs/lenshh-lt.html">Docs</a></li>
+        <li><a href="/education.html">Education</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <article class="case-study">
+    <p class="case-study-eyebrow">Case Study &middot; LensHH-LT</p>
+    <h1>From a single BK7 lens to a 3-element design — in two clicks</h1>
+    <p class="lede">
+      Synthesis by Saddle-Point Construction grows an optical design one
+      element at a time by finding saddle points in merit-vs-curvature
+      space. Starting from a single biconvex N-BK7 lens, two SPC levels
+      plus a Multistart polish drove the merit function down ~210× —
+      and discovered an unbalanced 3-element layout (singlet pre-stop,
+      cemented doublet post-stop) without a human picking the topology.
+    </p>
+
+    <div class="case-study-headline">
+      <div class="stat">
+        <span class="stat-value">1 → 3</span>
+        <span class="stat-label">Lens elements (1 BK7 → 1 singlet + 1 doublet)</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">~210&times;</span>
+        <span class="stat-label">Merit function reduction (0.925 → 4.34&times;10⁻³)</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">2</span>
+        <span class="stat-label">SPC insertion levels</span>
+      </div>
+    </div>
+
+    <div class="image-grid">
+      <figure>
+        <img src="/images/case-studies/spc-bk7-singlet/StartingLayoutBeforeSPC.png"
+             alt="Layout of starting BK7 biconvex singlet, showing severe spherical and chromatic aberration">
+        <figcaption>Before — single biconvex BK7 lens. Severe spherical &amp; chromatic.</figcaption>
+      </figure>
+      <figure>
+        <img src="/images/case-studies/spc-bk7-singlet/LayoutBestDesignAfterSPCandMS.png"
+             alt="Layout after SPC plus Multistart polish, showing singlet plus cemented doublet around the stop">
+        <figcaption>After — singlet pre-stop, cemented doublet post-stop.</figcaption>
+      </figure>
+    </div>
+
+    <h2>The starting design</h2>
+    <p>
+      A single biconvex N-BK7 element. 50 mm focal length, F/2 aperture
+      (12.5 mm), three field positions (0°/7°/10°), three visible
+      wavelengths (480/588/650 nm). Both curvatures and the centre
+      thickness are variable. Glass substitution is enabled on the lens
+      against a small filtered crown catalog. As a single element it
+      can't correct spherical aberration, coma, astigmatism, or
+      chromatic aberration simultaneously — the merit starts at
+      <code>0.925</code>.
+    </p>
+
+    <h2>The merit function</h2>
+    <p>
+      Standard image-quality plus boundary operands — but with one
+      addition that turns out to matter for SPC specifically: a
+      <strong><code>DTRG</code></strong> row (Diameter-to-Thickness Ratio,
+      Glass-only, bounds 2-10, weight 0.3) covering the whole inserted-element
+      span. SPC is unusually willing to make extreme element shapes; without
+      <code>DTRG</code> it lands on wafer-thin meniscus or brick-thick block
+      configurations that locally minimize aberration but can't be fabricated.
+      The bound enforces sane proportions: centre thickness can be at most
+      the full diameter (no super-thick blocks) and at least one tenth of
+      the diameter (no wafers).
+    </p>
+    <figure class="image-single">
+      <img src="/images/case-studies/spc-bk7-singlet/MeritFunctionWithDTRG.png"
+           alt="Starting merit function showing EFL, WAVEX, EG, EA, CTG, CTA, DTRG, and BFL CTA operands">
+      <figcaption>Starting merit function — note the <code>DTRG</code> row (#7) and the dedicated BFL <code>CTA</code> row (#8). Boundary operands span the inserted range.</figcaption>
+    </figure>
+
+    <h2>SPC settings</h2>
+    <p>
+      The defaults work out of the box, but two non-default knobs
+      mattered: the curvature scan range was widened to <code>±0.2</code>
+      (default <code>±0.1</code>) and the number of scan steps was
+      doubled to 200. The BK7 design's saddles sit out near
+      <code>c ≈ 0.07</code> — at the edge of the default window. The
+      element type was set to <strong>Single + Cemented Doublet</strong>
+      so the Top-N ranking could pick the best topology level by level.
+    </p>
+    <figure class="image-single">
+      <img src="/images/case-studies/spc-bk7-singlet/SPCWindowSettingsUsed.png"
+           alt="Synthesis by SPC dialog with the settings used for this case study">
+      <figcaption>SPC settings used. Element = Single + Cemented Doublet, Scan ±0.2, Steps 200, glass source CoreSet28, defaults elsewhere.</figcaption>
+    </figure>
+
+    <h2>What SPC did</h2>
+    <p>
+      SPC ran two insertion levels. At each level it scanned every air
+      gap in the surviving designs for saddles, branched into two local
+      minima at each saddle, ran a bootstrap LM to grow the new element
+      from infinitesimal thickness to a real one, then a full LM, then
+      glass trials over the catalog. The Top-N survivors became the
+      seeds for the next level.
+    </p>
+
+    <table>
+      <thead>
+        <tr><th>Phase</th><th class="num">Best merit</th><th>What happened</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Start</td><td class="num">0.925</td><td>Single biconvex N-BK7.</td></tr>
+        <tr><td>L1 best</td><td class="num">0.0192</td><td>First insertion: a singlet on the pre-stop side. ~48× drop from start.</td></tr>
+        <tr><td>L2 best</td><td class="num">0.00622</td><td>Second insertion: a cemented doublet on the post-stop side. SPC output.</td></tr>
+        <tr><td><strong>+ Multistart polish</strong></td><td class="num"><strong>0.00434</strong></td><td>Multistart with glass substitution; 23 / 648 trials accepted, ~30 % further drop. Three of four glass picks shuffled (S1: BK7 → N-FK58, S3: LASF35 → SF4, S7: LAFN7 → N-BASF2).</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      Final topology: an N-FK58 meniscus and an SF4 element pre-stop,
+      then an N-BK7 + N-BASF2 cemented doublet post-stop. The "Single +
+      Cemented Doublet" mode let the Top-N ranking pick a single
+      element at one level and a cemented doublet at the other —
+      exactly the unbalanced topology this aperture / field
+      combination wants, and one that wasn't pre-specified anywhere.
+    </p>
+
+    <figure class="image-single">
+      <img src="/images/case-studies/spc-bk7-singlet/MultiStartWindow.png"
+           alt="Multistart dialog showing the post-SPC polish run">
+      <figcaption>Follow-on Multistart — initial merit 6.22×10⁻³ (SPC output) → best 4.34×10⁻³, 23 / 648 trials accepted.</figcaption>
+    </figure>
+
+    <h2>The result</h2>
+
+    <h3>Spot diagrams</h3>
+    <div class="image-grid">
+      <figure>
+        <img src="/images/case-studies/spc-bk7-singlet/SpotDiagramBestDesignAfterSPC.png"
+             alt="Spot diagram after SPC, showing tighter spots than the starting design">
+        <figcaption>After SPC (merit 6.22×10⁻³).</figcaption>
+      </figure>
+      <figure>
+        <img src="/images/case-studies/spc-bk7-singlet/SpotDiagramBestDesignAfterSPCandMS.png"
+             alt="Spot diagram after SPC plus Multistart polish, showing further tightened spots">
+        <figcaption>After SPC + Multistart polish (merit 4.34×10⁻³).</figcaption>
+      </figure>
+    </div>
+
+    <h3>FFT MTF</h3>
+    <div class="image-grid">
+      <figure>
+        <img src="/images/case-studies/spc-bk7-singlet/FftMtfBestDesignAfterSPC.png"
+             alt="FFT MTF after SPC across three field positions">
+        <figcaption>After SPC.</figcaption>
+      </figure>
+      <figure>
+        <img src="/images/case-studies/spc-bk7-singlet/FftMtfBestDesignAfterSPCandMS.png"
+             alt="FFT MTF after SPC plus Multistart polish">
+        <figcaption>After SPC + Multistart polish.</figcaption>
+      </figure>
+    </div>
+
+    <h2>What's worth taking away</h2>
+    <ul>
+      <li>
+        <strong>SPC discovers topology.</strong> A human didn't specify
+        "put one singlet here and a doublet there" — SPC found that
+        layout by ranking saddle-point branches across both topology
+        choices.
+      </li>
+      <li>
+        <strong>Pair SPC with Multistart for the polish.</strong> SPC's
+        per-branch glass trials sample only a subset and its per-branch
+        LM is bounded — Multistart with glass substitution found ~30 %
+        further improvement and three better glass picks.
+      </li>
+      <li>
+        <strong>Bound proportions with <code>DTRG</code>.</strong>
+        Without it, SPC happily lands on element shapes that minimize
+        aberration on paper but can't be made.
+      </li>
+    </ul>
+
+    <div class="case-study-cta">
+      <h3>Run this yourself</h3>
+      <p>
+        The starting design and final result ship with LensHH-LT in the
+        samples folder. Open <code>BK7_UC.lhlt</code>, run Optimization →
+        Synthesis by SPC, and you'll see the same trajectory in your own
+        log window.
+      </p>
+      <a href="/download/lenshh-lt.html" class="btn btn-primary">Download free trial</a>
+      <a href="/case-studies.html" class="btn btn-secondary">More case studies</a>
+    </div>
+
+  </article>
+
+  <footer class="footer">
+    <p>&copy; 2026 Synapse Optics. All rights reserved. &nbsp;|&nbsp;
+      <a href="mailto:support@synapseoptics.com">support@synapseoptics.com</a>
+    </p>
+  </footer>
+
+</body>
+</html>
