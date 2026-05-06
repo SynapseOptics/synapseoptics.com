@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LensHH-LT Documentation | Synapse Optics</title>
+  <title>LensHH-LT User Guide | Synapse Optics</title>
   <link rel="stylesheet" href="/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 </head>
@@ -12,13 +12,12 @@
   <nav class="nav">
     <div class="nav-inner">
       <a href="/" class="nav-logo">
-        <img src="/images/logo-icon.svg" alt="" style="height: 36px; width: 36px;">
-        Synapse Optics
+        <img src="/images/logo-synapse-optics.png" alt="Synapse Optics" style="height: 56px; width: auto;">
       </a>
       <ul class="nav-links">
         <li><a href="/products.html">Products</a></li>
         <li><a href="/about.html">About</a></li>
-        <li><a href="/docs/lenshh-lt.html">Docs</a></li>
+        <li><a href="/docs/lenshh-lt.html">User Guide</a></li>
         <li><a href="/education.html">Education</a></li>
       </ul>
     </div>
@@ -29,20 +28,26 @@
       <p style="font-weight: 600; padding: 6px 12px; color: var(--color-text);">LensHH-LT</p>
       <ul>
         <li><a href="#getting-started">Getting Started</a></li>
+        <li><a href="#user-guide">User Guide (PDF)</a></li>
         <li><a href="#activation">Activation</a></li>
         <li><a href="#lens-editor">Lens Editor</a></li>
         <li><a href="#analysis">Analysis</a></li>
         <li><a href="#optimization">Optimization</a></li>
         <li><a href="#file-formats">File Formats</a></li>
         <li><a href="#cli">Command Line</a></li>
-        <li><a href="#full-reference">Full reference (PDF)</a></li>
         <li><a href="#support">Support</a></li>
       </ul>
     </aside>
 
     <main class="docs-content">
       <h2 id="getting-started">Getting Started</h2>
-      <p>Download LensHH-LT and run the installer. The application runs on Windows, Linux, and macOS.</p>
+      <p>LensHH-LT runs on Windows, Linux, and macOS:</p>
+      <ul>
+        <li><strong>Windows:</strong> download the <a href="https://github.com/SynapseOptics/LensHH-LT/releases/latest">Inno Setup installer</a> and run it.</li>
+        <li><strong>Linux:</strong> download the <a href="https://github.com/SynapseOptics/LensHH-LT/releases/latest">AppImage</a>, mark it executable, and run it.</li>
+        <li><strong>macOS:</strong> <a href="https://github.com/SynapseOptics/LensHH-LT">build from source</a> &mdash; see the README for instructions.</li>
+      </ul>
+      <p>See the <a href="/download/lenshh-lt.html">Download page</a> for full details.</p>
       <h3>System Requirements</h3>
       <ul>
         <li>Windows 10/11, Linux, or macOS (64-bit)</li>
@@ -50,6 +55,17 @@
         <li>4 GB RAM minimum, 8 GB recommended</li>
         <li>Internet connection for activation (one-time). <a href="#activation">Offline activation</a> available for air-gapped machines.</li>
       </ul>
+
+      <h2 id="user-guide">User Guide (PDF)</h2>
+      <p>
+        The user guide ships with the installer as a searchable HTML help
+        bundle and a PDF. Open it from
+        <strong>Help &rarr; User Guide</strong> in the application, or
+        view the latest version directly on GitHub:
+      </p>
+      <p>
+        <a href="https://github.com/SynapseOptics/LensHH-LT/blob/main/docs/LensHH-LT-UserGuide.pdf" class="btn btn-secondary">View User Guide PDF &rarr;</a>
+      </p>
 
       <h2 id="activation">Activation</h2>
       <h3>Free Trial</h3>
@@ -124,7 +140,7 @@
 
       <h2 id="file-formats">File Formats</h2>
       <h3>Native Format (.lhlt)</h3>
-      <p>JSON-based format that preserves all data including merit function, variables, constraints, and configurations.</p>
+      <p>JSON-based format that preserves all data including merit function, variables, and constraints.</p>
 
       <h3>Import</h3>
       <ul>
@@ -146,18 +162,6 @@ fft-mtf
 spot
 optimize 500
 save result.lhlt</code></pre>
-
-      <h2 id="full-reference">Full Reference</h2>
-      <p>
-        The complete user guide ships with the installer as a searchable
-        HTML help bundle and a PDF (~150 pages). Open it from
-        <strong>Help &rarr; User Guide</strong> in the application, or
-        download the latest version directly:
-      </p>
-      <p>
-        <!-- TODO: link to the PDF artifact once published with each release. -->
-        <a href="https://github.com/SynapseOptics/SynapseLensHH-LT/releases/latest" class="btn btn-secondary">Latest release on GitHub &rarr;</a>
-      </p>
 
       <h2 id="support">Support</h2>
       <p>Email: <a href="mailto:support@synapseoptics.com">support@synapseoptics.com</a></p>

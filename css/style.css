@@ -16,7 +16,10 @@
   --nav-height: 72px;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-height) + 16px);
+}
 
 body {
   font-family: var(--font-sans);
@@ -66,7 +69,7 @@ img { max-width: 100%; height: auto; }
 
 .nav-logo:hover { text-decoration: none; }
 
-.nav-logo img { height: 32px; width: 32px; }
+.nav-logo img { height: 56px; width: auto; }
 
 .nav-links {
   display: flex;
@@ -127,6 +130,8 @@ img { max-width: 100%; height: auto; }
 
 .section-sm { padding: 48px 24px; }
 
+.hero + .section { padding-top: 8px; }
+
 .section-alt { background: var(--color-surface); max-width: none; padding: 80px 24px; }
 .section-alt > * { max-width: var(--max-width); margin-left: auto; margin-right: auto; }
 
@@ -149,7 +154,7 @@ img { max-width: 100%; height: auto; }
 /* ── Hero ─────────────────────────────────────────────────────────────────── */
 .hero {
   text-align: center;
-  padding: 100px 24px 80px;
+  padding: 100px 24px 12px;
   max-width: var(--max-width);
   margin: 0 auto;
 }
@@ -496,6 +501,7 @@ img { max-width: 100%; height: auto; }
   margin: 48px 0 16px;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--color-border);
+  scroll-margin-top: calc(var(--nav-height) + 16px);
 }
 
 .docs-content h2:first-child { margin-top: 0; }
@@ -503,6 +509,7 @@ img { max-width: 100%; height: auto; }
 .docs-content h3 {
   font-size: 1.15rem;
   margin: 32px 0 12px;
+  scroll-margin-top: calc(var(--nav-height) + 16px);
 }
 
 .docs-content p,
