@@ -52,7 +52,7 @@
       </div>
       <div class="feature-card">
         <h3>Optical coatings</h3>
-        <p>Dispersion, transmission, and reflection from real coating stacks. Couples to the polychromatic merit-function pipeline.</p>
+        <p>Design and analysis of transmission and reflection from multilayer coating stacks. Polarized ray tracing through coated surfaces.</p>
       </div>
       <div class="feature-card">
         <h3>Additional surface types</h3>
@@ -72,11 +72,28 @@
         We'll email you when LensHH-Pro is ready, with launch pricing
         and an early-access offer for waitlist members.
       </p>
-      <!-- TODO: wire to a Cloudflare Worker /waitlist endpoint
-           (mirror the existing /education flow). For now, mailto fallback. -->
-      <a href="mailto:waitlist@synapseoptics.com?subject=LensHH-Pro%20waitlist" class="btn btn-primary btn-large" style="width: 100%;">
-        Email us to be notified
-      </a>
+      <!-- FormSubmit.co relays the POST as an email to the address in
+           the action URL. First submission requires a one-time
+           confirmation email from support@synapseoptics.com to activate
+           the endpoint. After that, every form submission lands as an
+           email at support@. No backend changes required on our end. -->
+      <form action="https://formsubmit.co/support@synapseoptics.com" method="POST">
+        <input type="hidden" name="_subject" value="LensHH-Pro waitlist signup">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="message" value="Please add me to the waitlist for LensHH-Pro">
+        <div class="form-group">
+          <label for="wl-name">Name (optional)</label>
+          <input type="text" id="wl-name" name="name" placeholder="Jane Smith">
+        </div>
+        <div class="form-group">
+          <label for="wl-email">Email</label>
+          <input type="email" id="wl-email" name="email" required placeholder="you@example.com">
+        </div>
+        <button type="submit" class="btn btn-primary btn-large" style="width: 100%;">
+          Join the waitlist
+        </button>
+      </form>
     </div>
   </section>
 
