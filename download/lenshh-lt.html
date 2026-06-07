@@ -35,28 +35,39 @@
       <div class="feature-card" style="text-align: center; padding: 36px;">
         <h3 style="font-size: 1.3rem; margin-bottom: 4px;">Windows</h3>
         <p style="margin-bottom: 20px;">Windows 10/11 (64-bit)</p>
-        <!-- TODO: Replace with the public release URL once LensHH-LT is published. -->
-        <a href="https://github.com/SynapseOptics/LensHH-LT/releases/latest" class="btn btn-primary" style="width: 100%;">Download Installer</a>
-        <p style="margin-top: 12px; font-size: 0.85rem; color: var(--color-text-light);">Inno Setup installer &middot; Bundles .NET 8 runtime</p>
+        <a href="https://github.com/SynapseOptics/LensHH-LT/releases/latest" id="dl-windows" class="btn btn-primary" style="width: 100%;">Download Installer</a>
+        <p style="margin-top: 12px; font-size: 0.85rem; color: var(--color-text-light);">Inno Setup installer &middot; Bundles .NET 8 runtime &middot; GPU support</p>
       </div>
 
       <!-- Linux -->
       <div class="feature-card" style="text-align: center; padding: 36px;">
         <h3 style="font-size: 1.3rem; margin-bottom: 4px;">Linux</h3>
         <p style="margin-bottom: 20px;">Ubuntu, Fedora, Arch (64-bit)</p>
-        <a href="https://github.com/SynapseOptics/LensHH-LT/releases/latest" class="btn btn-primary" style="width: 100%;">Download AppImage</a>
-        <p style="margin-top: 12px; font-size: 0.85rem; color: var(--color-text-light);">Portable AppImage &middot; Bundles .NET 8 runtime</p>
+        <a href="https://github.com/SynapseOptics/LensHH-LT/releases/latest" id="dl-linux" class="btn btn-primary" style="width: 100%;">Download AppImage</a>
+        <p style="margin-top: 12px; font-size: 0.85rem; color: var(--color-text-light);">Portable AppImage &middot; Bundles .NET 8 runtime &middot; CPU-only</p>
       </div>
 
       <!-- macOS -->
       <div class="feature-card" style="text-align: center; padding: 36px;">
         <h3 style="font-size: 1.3rem; margin-bottom: 4px;">macOS</h3>
-        <p style="margin-bottom: 20px;">macOS 12+ (Apple Silicon &amp; Intel)</p>
-        <a href="https://github.com/SynapseOptics/LensHH-LT" class="btn btn-secondary" style="width: 100%;">Build from Source</a>
-        <p style="margin-top: 12px; font-size: 0.85rem; color: var(--color-text-light);">See build instructions on GitHub</p>
+        <p style="margin-bottom: 20px;">macOS 12+ &middot; Apple Silicon (M1 or later)</p>
+        <a href="https://github.com/SynapseOptics/LensHH-LT/releases/latest" id="dl-macos" class="btn btn-primary" style="width: 100%;">Download for Apple Silicon</a>
+        <p style="margin-top: 12px; font-size: 0.85rem; color: var(--color-text-light);">Signed <code>.app</code> bundle &middot; CPU-only (no GPU on macOS)</p>
       </div>
 
     </div>
+
+    <p style="max-width: 720px; margin: 28px auto 0; font-size: 0.85rem; color: var(--color-text-light); line-height: 1.6;">
+      <strong>macOS first launch:</strong> unzip the download, then right-click
+      <code>LensHH-LT.app</code> &rarr; <strong>Open</strong> &rarr; <strong>Open</strong> once
+      &mdash; the app is signed but not yet notarized, so this is the one-time
+      equivalent of the Windows SmartScreen &ldquo;Run anyway.&rdquo;
+      Apple&nbsp;Silicon only; Intel Macs are not supported.
+    </p>
+
+    <p style="margin: 24px auto 0;">
+      <a href="https://github.com/SynapseOptics/LensHH-LT/releases/latest" class="btn btn-secondary">All downloads &amp; release notes on GitHub &rarr;</a>
+    </p>
 
     <div style="max-width: 600px; margin: 48px auto 0; text-align: left;">
       <h3 style="margin-bottom: 12px;">Build from Source</h3>
@@ -80,5 +91,6 @@ dotnet run --project src/LensHH.App/LensHH.App.csproj</code></pre>
     </p>
   </footer>
 
+  <script src="/js/download-links.js" defer></script>
 </body>
 </html>

@@ -28,7 +28,7 @@
       <p style="font-weight: 600; padding: 6px 12px; color: var(--color-text);">LensHH-LT</p>
       <ul>
         <li><a href="#getting-started">Getting Started</a></li>
-        <li><a href="#user-guide">User Guide (PDF)</a></li>
+        <li><a href="#user-guide">User Guide</a></li>
         <li><a href="#activation">Activation</a></li>
         <li><a href="#lens-editor">Lens Editor</a></li>
         <li><a href="#analysis">Analysis</a></li>
@@ -45,26 +45,27 @@
       <ul>
         <li><strong>Windows:</strong> download the <a href="https://github.com/SynapseOptics/LensHH-LT/releases/latest">Inno Setup installer</a> and run it.</li>
         <li><strong>Linux:</strong> download the <a href="https://github.com/SynapseOptics/LensHH-LT/releases/latest">AppImage</a>, mark it executable, and run it.</li>
-        <li><strong>macOS:</strong> <a href="https://github.com/SynapseOptics/LensHH-LT">build from source</a> &mdash; see the README for instructions.</li>
+        <li><strong>macOS (Apple Silicon):</strong> download the <a href="https://github.com/SynapseOptics/LensHH-LT/releases/latest">macOS package</a>, unzip it, then right-click <code>LensHH-LT.app</code> &rarr; Open. Apple Silicon (M1 or later); CPU-only.</li>
       </ul>
       <p>See the <a href="/download/lenshh-lt.html">Download page</a> for full details.</p>
       <h3>System Requirements</h3>
       <ul>
         <li>Windows 10/11, Linux, or macOS (64-bit)</li>
-        <li>.NET 8 Runtime (bundled with the Windows installer and Linux AppImage)</li>
+        <li>.NET 8 Runtime (bundled with all desktop downloads &mdash; the Windows installer, Linux AppImage, and macOS package)</li>
         <li>4 GB RAM minimum, 8 GB recommended</li>
         <li>Internet connection for activation (one-time). <a href="#activation">Offline activation</a> available for air-gapped machines.</li>
       </ul>
 
-      <h2 id="user-guide">User Guide (PDF)</h2>
+      <h2 id="user-guide">User Guide</h2>
       <p>
-        The user guide ships with the installer as a searchable HTML help
-        bundle and a PDF. Open it from
-        <strong>Help &rarr; User Guide</strong> in the application, or
-        view the latest version directly on GitHub:
+        Read the full, searchable user guide right in your browser, or
+        download the PDF. The same guide is built into the application
+        under <strong>Help &rarr; User Guide</strong>.
       </p>
       <p>
-        <a href="https://github.com/SynapseOptics/LensHH-LT/releases/latest/download/LensHH-LT-UserGuide.pdf" class="btn btn-secondary">Download User Guide PDF &rarr;</a>
+        <a href="/docs/lenshh-lt-help.html" target="_blank" rel="noopener" class="btn btn-primary">Open User Guide &rarr;</a>
+        &nbsp;
+        <a href="https://github.com/SynapseOptics/LensHH-LT/releases/latest/download/LensHH-LT-UserGuide.pdf" id="dl-pdf" class="btn btn-secondary">Download PDF</a>
       </p>
 
       <h2 id="activation">Activation</h2>
@@ -128,6 +129,7 @@
 
       <h3>Multistart Global Search</h3>
       <p>Randomizes variables around the current solution and runs many short local optimizations in parallel. Finds the best result across all trials.</p>
+      <p><strong>GPU pre-screen (beta).</strong> On Windows with a CUDA-capable NVIDIA GPU, Multistart can offload the candidate pre-screening pass to the GPU; the Levenberg&ndash;Marquardt refinement always runs on the CPU. Benefit varies by GPU.</p>
 
       <h3>Basin Hopping</h3>
       <p>Hooke-Jeeves direct search combined with LM polishing — good when the topology is fixed but the local minimum needs to be escaped.</p>
