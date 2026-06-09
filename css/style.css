@@ -767,3 +767,32 @@ img { max-width: 100%; height: auto; }
   .case-study h1 { font-size: 1.7rem; }
   .case-study-headline .stat-value { font-size: 1.4rem; }
 }
+
+/* ── Case-studies index cards ─────────────────────────────────────────────── */
+.cs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+.cs-card {
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-bg);
+  transition: box-shadow .15s ease, transform .15s ease;
+}
+.cs-card:hover { box-shadow: 0 10px 28px rgba(0, 0, 0, .09); transform: translateY(-2px); }
+.cs-card a { color: inherit; text-decoration: none; display: flex; flex-direction: column; height: 100%; }
+.cs-card img {
+  display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
+  background: var(--color-surface); border-bottom: 1px solid var(--color-border);
+}
+.cs-card-body { padding: 20px 22px; display: flex; flex-direction: column; flex: 1; }
+.cs-card-tag {
+  font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--color-accent); margin-bottom: 8px;
+}
+.cs-card h3 { font-size: 1.15rem; margin: 0 0 8px; color: var(--color-text); }
+.cs-card p { font-size: .93rem; color: var(--color-text-light); margin: 0 0 16px; flex: 1; }
+.cs-card-more { font-weight: 600; color: var(--color-accent); }

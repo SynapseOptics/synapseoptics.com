@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Studies | Synapse Optics</title>
+  <meta name="description" content="LensHH-LT case studies — real optical-design workflows and performance benchmarks: GPU-accelerated merit evaluation across hardware, and synthesis by saddle-point construction.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/images/logo-synapse-optics.png" alt="Synapse Optics" style="height: 56px; width: auto;">
+      </a>
+      <ul class="nav-links">
+        <li><a href="/products.html">Products</a></li>
+        <li><a href="/case-studies/">Case Studies</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/docs/lenshh-lt.html">User Guide</a></li>
+        <li><a href="/education.html">Education</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="section">
+    <h1 style="font-size: 2.4rem; text-align: center; margin-bottom: 12px;">Case Studies</h1>
+    <p class="section-lede">
+      Real optical-design workflows and performance benchmarks, run in LensHH-LT.
+    </p>
+
+    <div class="cs-grid">
+
+      <div class="cs-card">
+        <a href="/case-studies/gpu-merit-throughput.html">
+          <img src="/images/case-studies/gpu-merit-throughput/thumb.png"
+               alt="GPU pre-screen merit-evaluation throughput across NVIDIA GPUs">
+          <div class="cs-card-body">
+            <span class="cs-card-tag">LensHH-LT &middot; Performance</span>
+            <h3>One kernel, laptop to H100</h3>
+            <p>
+              The same bit-identical merit function on eight systems &mdash; from a
+              fanless laptop to a datacenter H100. The GPU value pre-screen reaches
+              ~446k evaluations/second; the CPU runs the analytic-Jacobian polish.
+            </p>
+            <span class="cs-card-more">Read the case study &rarr;</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="cs-card">
+        <a href="/case-studies/spc-bk7-singlet.html">
+          <img src="/images/case-studies/spc-bk7-singlet/LayoutBestDesignAfterSPCandMS.png"
+               alt="Lens layout after synthesis by saddle-point construction — singlet plus cemented doublet">
+          <div class="cs-card-body">
+            <span class="cs-card-tag">LensHH-LT &middot; Synthesis</span>
+            <h3>From a single BK7 lens to a 3-element design</h3>
+            <p>
+              Synthesis by Saddle-Point Construction grows a biconvex BK7 singlet
+              into a singlet + cemented doublet, dropping the merit function ~210&times;
+              in two clicks &mdash; discovering the topology without a human picking it.
+            </p>
+            <span class="cs-card-more">Read the case study &rarr;</span>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2026 Synapse Optics. All rights reserved. &nbsp;|&nbsp;
+      <a href="mailto:support@synapseoptics.com">support@synapseoptics.com</a>
+    </p>
+  </footer>
+
+</body>
+</html>

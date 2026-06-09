@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One kernel, laptop to H100 — merit-function throughput across hardware | Synapse Optics</title>
+  <meta name="description" content="LensHH-LT case study: the same bit-identical merit function evaluated on eight systems — laptop, MacBook Air, gaming desktops, and datacenter A100/H100. The GPU value pre-screen reaches ~446k merit evaluations/second; the CPU runs the analytic-Jacobian polish.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/images/logo-synapse-optics.png" alt="Synapse Optics" style="height: 56px; width: auto;">
+      </a>
+      <ul class="nav-links">
+        <li><a href="/products.html">Products</a></li>
+        <li><a href="/case-studies/">Case Studies</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/docs/lenshh-lt.html">User Guide</a></li>
+        <li><a href="/education.html">Education</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <article class="case-study">
+    <p class="case-study-eyebrow">Case Study &middot; LensHH-LT</p>
+    <h1>One kernel, laptop to H100 — merit-function throughput across hardware</h1>
+    <p class="lede">
+      LensHH-LT evaluates the same merit function &mdash; bit for bit &mdash;
+      on a fanless laptop, a MacBook Air, gaming desktops, and rented
+      A100&nbsp;/&nbsp;H100 GPUs. The GPU value pre-screen treats every
+      candidate lens as one thread, reaching hundreds of thousands of merit
+      evaluations per second; the CPU runs the analytic-Jacobian polish.
+      Across eight machines and three merit functions, the GPU result matches
+      the CPU to the floating-point noise floor.
+    </p>
+
+    <div class="case-study-headline">
+      <div class="stat">
+        <span class="stat-value">8</span>
+        <span class="stat-label">Systems benchmarked (laptop &rarr; H100)</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">~446k/s</span>
+        <span class="stat-label">Peak merit evaluations (H100, GPU pre-screen)</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">&le;&nbsp;6.6&times;10⁻¹⁴</span>
+        <span class="stat-label">CPU&harr;GPU agreement &mdash; bit-identical</span>
+      </div>
+    </div>
+
+    <h2>The benchmark</h2>
+    <p>
+      <code>MeritEvalBench</code> times the primitives the optimizer is built
+      from, with no LM loop in the way. It measures whole-merit
+      <strong>value throughput</strong> &mdash; how many candidate designs
+      per second the engine can score &mdash; on the CPU (all cores) and on
+      the GPU, and it separately times the <strong>analytic Jacobian</strong>
+      (residuals plus the full derivative matrix in one pass) on the CPU.
+      The GPU and CPU paths call the <em>same</em> compiled
+      <code>evaluate_merit</code>, so the GPU result is bit-identical to the
+      CPU by construction. The GPU is used as a <strong>value-only
+      pre-screen</strong> &mdash; a wide Multistart sieve &mdash; while the
+      Levenberg&ndash;Marquardt polish, with analytic derivatives, runs on the
+      CPU.
+    </p>
+
+    <h2>Eight systems</h2>
+    <p>
+      The identical Linux / Windows / macOS binary, exercised from a low-power
+      laptop up to a datacenter H100. GPU support ships as a prebuilt native
+      cubin (<code>sm_80 / 89 / 90 / 120</code>), so there is no CUDA toolkit
+      to install on the target and no multi-minute first-run compile &mdash;
+      the RTX&nbsp;5070&nbsp;Ti below ran with no SDK installed at all.
+    </p>
+    <table>
+      <thead>
+        <tr><th>System</th><th>CPU</th><th>GPU</th><th>GPU architecture (SMs)</th><th>Memory bandwidth</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Laptop</td><td>Core i7-1255U (12T)</td><td>&mdash; (Iris Xe)</td><td>&mdash;</td><td>&mdash;</td></tr>
+        <tr><td>MacBook Air</td><td>Apple Silicon (ARM64)</td><td>&mdash; (integrated)</td><td>&mdash;</td><td>&mdash;</td></tr>
+        <tr><td>Mini-desktop</td><td>Ryzen 3 5300G (8T)</td><td>&mdash; (Radeon)</td><td>&mdash;</td><td>&mdash;</td></tr>
+        <tr><td>Desktop</td><td>Core i5-13400F (16T)</td><td>RTX 4060</td><td>Ada sm_89 (24)</td><td>272 GB/s</td></tr>
+        <tr><td>Workstation</td><td>Ryzen 7 9800X3D (16T)</td><td>RTX 5070 Ti</td><td>Blackwell sm_120 (70)</td><td>~896 GB/s</td></tr>
+        <tr><td>Cloud</td><td>16 vCPU</td><td>A100 40GB</td><td>Ampere sm_80 (108)</td><td>~1.55 TB/s</td></tr>
+        <tr><td>Cloud</td><td>24 vCPU</td><td>H100 80GB</td><td>Hopper sm_90 (132)</td><td>~3.35 TB/s</td></tr>
+        <tr><td>Cloud</td><td>28 vCPU</td><td>RTX PRO 6000</td><td>Blackwell sm_120 (188)</td><td>~1.79 TB/s</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Three merit functions</h2>
+    <p>
+      The three test designs span a wide range of merit-function size &mdash;
+      and the GPU advantage grows with that size, because the device hides
+      memory latency behind more parallel work.
+    </p>
+    <ul>
+      <li><strong>Cooke triplet</strong> &mdash; 8 surfaces, 12 variables; a light merit (7 operands &rarr; 240 expanded).</li>
+      <li><strong>Imaging lens &middot; WAVEX</strong> &mdash; a patented multi-element imaging lens, 21 surfaces, 36 variables, with a <code>WAVEX</code> wavefront-error operand sampled on Forbes quadrature (6&nbsp;rings &times; 12&nbsp;arms): 8 operands &rarr; 241 expanded.</li>
+      <li><strong>Imaging lens &middot; WAVEX + SENS</strong> &mdash; the same lens with an added <code>SENS</code> sensitivity operand to drive a more manufacturable design. <code>SENS</code> perturbs every surface, expanding the merit to 8 operands &rarr; <strong>4,686 sub-operands</strong> &mdash; roughly 19&times; more work per evaluation.</li>
+    </ul>
+    <p style="color: var(--color-text-light); font-size: 0.9em;">
+      All three: three wavelengths, three fields, infinite conjugate. The
+      imaging lens is Example&nbsp;2 of U.S. Patent
+      US&nbsp;12,321,041&nbsp;B2 (Tanabe&nbsp;et&nbsp;al.).
+    </p>
+
+    <h2>Merit evaluations per second</h2>
+    <figure class="image-single">
+      <img src="/images/case-studies/gpu-merit-throughput/merit-cpu-gpu.png"
+           alt="Bar charts of merit evaluations per second on CPU (all cores) versus GPU pre-screen, across eight systems and three lenses, log scale">
+      <figcaption>Merit evaluations / second, CPU (all cores) vs GPU value pre-screen, per lens (log scale). GPU output is bit-identical to the CPU on every card.</figcaption>
+    </figure>
+    <p>
+      On the GPU, every candidate lens is a thread: the device scores tens of
+      thousands of designs in one launch. An H100 reaches roughly
+      <strong>446k merit evaluations per second</strong> on the Cooke triplet
+      and <strong>65k/second</strong> on the heaviest (WAVEX&nbsp;+&nbsp;SENS)
+      merit; even a consumer RTX&nbsp;5070&nbsp;Ti clears 142k and 15k. The
+      printed CPU&nbsp;multiples depend on how many cores the host has, so the
+      figures above lead with absolute throughput &mdash; the number that
+      actually scales with the hardware.
+    </p>
+
+    <h2>Bandwidth-bound, not FP64-bound</h2>
+    <p>
+      The whole-merit kernel is bound by memory bandwidth, not
+      double-precision compute. The clearest evidence: the consumer-class
+      Blackwell card matches the A100 within about 1% on the heaviest merit
+      (37k vs 37k evaluations/second) despite having roughly
+      <strong>14&times; less FP64 throughput</strong>. Across all four GPUs the
+      ranking tracks memory bandwidth &mdash; from the 4060's 272&nbsp;GB/s up
+      to the H100's HBM3 &mdash; not the FP64 spec. In practice that means a
+      well-chosen consumer GPU delivers datacenter-class merit throughput for
+      this workload.
+    </p>
+
+    <h2>Analytic derivatives on the CPU</h2>
+    <figure class="image-single">
+      <img src="/images/case-studies/gpu-merit-throughput/analytic-jacobian.png"
+           alt="Bar chart of C++ analytic-Jacobian evaluations per second per CPU, grouped by lens, log scale">
+      <figcaption>C++ merit + analytic derivatives: one residuals + full-Jacobian evaluation per second, per CPU (log scale).</figcaption>
+    </figure>
+    <p>
+      The Levenberg&ndash;Marquardt polish needs the Jacobian, and LensHH-LT
+      computes it analytically &mdash; residuals and the full derivative matrix
+      in a single forward-mode dual-number pass, far faster than finite
+      differences. This is the CPU's job in the hybrid pipeline: the GPU sieves
+      a wide field of candidates by value, then the CPU refines the survivors
+      with exact derivatives. The chart shows that single-eval cost scales with
+      the host CPU across every machine in the sweep.
+    </p>
+
+    <h2>What's worth taking away</h2>
+    <ul>
+      <li>
+        <strong>One engine, everywhere &mdash; bit-identical.</strong> The same
+        kernel runs on a laptop, a MacBook Air, a desktop, and a datacenter
+        GPU, and the CPU and GPU agree to the floating-point noise floor.
+      </li>
+      <li>
+        <strong>The GPU is a wide value pre-screen.</strong> Every lens is a
+        thread; a single launch scores thousands of candidates, then the CPU
+        polishes the survivors with analytic derivatives.
+      </li>
+      <li>
+        <strong>Memory bandwidth is the lever, not FP64.</strong> A consumer
+        Blackwell card matches an A100 on this workload &mdash; so the
+        price/performance sweet spot can be a consumer GPU.
+      </li>
+      <li>
+        <strong>No CUDA toolkit on the target.</strong> Prebuilt native cubin
+        (<code>sm_80/89/90/120</code>) means instant launch on every card,
+        including the latest Blackwell GPUs &mdash; nothing to install, no
+        first-run compile.
+      </li>
+    </ul>
+
+    <div class="case-study-cta">
+      <h3>Try it on your hardware</h3>
+      <p>
+        LensHH-LT runs on Windows, Linux, and macOS, and the GPU pre-screen
+        engages automatically when a CUDA device is present. Download the free
+        trial and run a Multistart on your own designs.
+      </p>
+      <a href="/download/lenshh-lt.html" class="btn btn-primary">Download free trial</a>
+      <a href="/products/lenshh-lt.html" class="btn btn-secondary">Back to LensHH-LT</a>
+    </div>
+
+  </article>
+
+  <footer class="footer">
+    <p>&copy; 2026 Synapse Optics. All rights reserved. &nbsp;|&nbsp;
+      <a href="mailto:support@synapseoptics.com">support@synapseoptics.com</a>
+    </p>
+  </footer>
+
+</body>
+</html>
