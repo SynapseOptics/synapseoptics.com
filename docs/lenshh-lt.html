@@ -128,9 +128,12 @@
       <h3>Local Optimization</h3>
       <p>Damped least-squares (Levenberg-Marquardt) optimizer. Set variables on surfaces, define a merit function, and run <strong>Optimization &rarr; Local Optimization</strong>.</p>
 
-      <h3>Multistart Global Search</h3>
+      <h3>Multistart</h3>
       <p>Randomizes variables around the current solution and runs many short local optimizations in parallel. Finds the best result across all trials.</p>
       <p><strong>GPU pre-screen (beta).</strong> On Windows or Linux with a CUDA-capable NVIDIA GPU, Multistart can offload the candidate pre-screening pass to the GPU; the Levenberg&ndash;Marquardt refinement always runs on the CPU. Benefit varies by GPU.</p>
+
+      <h3>Global Search</h3>
+      <p>Explores the design space from many diverse seeds and returns a gallery of structurally distinct solutions rather than a single answer &mdash; near-duplicates are merged by merit so each card is a genuinely different lens form. Pick the form that best fits your packaging and aberration trade-offs, then polish it locally. Ideal early in a design when the best topology is still unknown.</p>
 
       <h3>Basin Hopping</h3>
       <p>Hooke-Jeeves direct search combined with LM polishing — good when the topology is fixed but the local minimum needs to be escaped.</p>
