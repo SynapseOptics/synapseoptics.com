@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vignetting factors, and optimizing the apertures instead — case study | Synapse Optics</title>
+  <meta name="description" content="A LensHH-LT case study that explains what vignetting and vignetting factors are, why they complicate global optimization, and how making the clear-aperture semi-diameters the variables — with factors recomputed every merit evaluation — keeps a design realizable while improving a Cooke triplet's off-axis imaging.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/images/logo-synapse-optics.png" alt="Synapse Optics" style="height: 56px; width: auto;">
+      </a>
+      <ul class="nav-links">
+        <li><a href="/products.html">Products</a></li>
+        <li><a href="/case-studies/">Case Studies</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/docs/lenshh-lt.html">User Guide</a></li>
+        <li><a href="/education.html">Education</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <article class="case-study">
+    <p class="case-study-eyebrow">Case Study &middot; LensHH-LT</p>
+    <h1>Vignetting factors &mdash; and why we optimize the apertures instead</h1>
+    <p class="lede">
+      Lens designers often shrink the diameters of selected elements on purpose. There
+      are two common reasons: to make the lens smaller and lighter, or to improve
+      off-axis image quality. Either way, undersizing an element clips part of the
+      off-axis ray bundle &mdash; this is <em>vignetting</em>. This case study explains
+      what vignetting and the <em>vignetting factors</em> that model it actually are,
+      why they are awkward to carry through a global optimization, and how LensHH-LT
+      sidesteps the problem by optimizing the physical apertures directly. The worked
+      example at the end uses vignetting to improve off-axis performance.
+    </p>
+
+    <h2>What vignetting is</h2>
+    <p>
+      At every iteration of an optimization, a lens design code computes the diameter
+      each surface would need in order to pass all the rays coming from the entrance
+      pupil. Wherever the designer has <em>fixed</em> a diameter smaller than that
+      computed value, some rays no longer make it through. For an off-axis field point,
+      that clips the cone reaching the image, which raises the effective F/# and dims
+      the edge of the field &mdash; a drop in relative illumination.
+    </p>
+    <p>
+      Why accept that? Two reasons. The first is size and weight: trimming the outer
+      elements makes a smaller, lighter lens. The second is image quality: the rays at
+      the edge of the pupil are often the most aberrated, so removing them can sharpen
+      the off-axis image. The trade is straightforward to state &mdash; the designer
+      gives up some edge illumination in exchange for a smaller lens or better off-axis
+      performance. (One caution: if a diameter is reduced so far that it also clips the
+      <em>on-axis</em> cone, that surface has quietly become the aperture stop of the
+      system &mdash; almost never the intent.)
+    </p>
+    <figure class="image-single">
+      <img src="/images/case-studies/vignetting-aperture-optimization/cooke-triplet-fields.png"
+           alt="Cooke triplet layout: the on-axis bundle fills the elements while the 20-degree bundle is clipped by the outer element apertures">
+      <figcaption>
+        A Cooke triplet. The on-axis bundle (center) fills the elements; the 20&deg;
+        bundle is clipped by the outer apertures &mdash; that clipping is the vignetting.
+      </figcaption>
+    </figure>
+
+    <h2>The vignetted pupil is a &ldquo;cat&rsquo;s eye&rdquo;</h2>
+    <p>
+      Look at an off-axis field through the entrance pupil and the surviving region is
+      no longer a full circle. Each element aperture projects to a circle in pupil
+      coordinates, and off-axis those circles are shifted relative to one another; the
+      part of the pupil that actually passes through the system is their overlap &mdash;
+      a lens-shaped region commonly called a &ldquo;cat&rsquo;s eye.&rdquo; In the
+      wavefront map below, the on-axis field (top row) fills the pupil, while the 20&deg;
+      field (bottom row) shows the cat&rsquo;s eye, with the clipped regions in black.
+    </p>
+    <figure class="image-single">
+      <img src="/images/case-studies/vignetting-aperture-optimization/wavefront-before.png"
+           alt="Wavefront map across three fields and three wavelengths; the 20-degree row shows the vignetted cat's-eye pupil with clipped regions in black">
+      <figcaption>
+        Wavefront maps by field (rows) and wavelength (columns). The 20&deg; row is the
+        vignetted cat&rsquo;s-eye pupil; black is where rays are clipped by the apertures.
+      </figcaption>
+    </figure>
+
+    <h2>What vignetting factors are</h2>
+    <p>
+      Here is the practical problem the factors solve. If the optimizer launched a grid
+      of rays across the full circular pupil, most of them would land in the black
+      region at an off-axis field and fail to trace. The few that survive give a noisy,
+      unreliable spot-size estimate. You could fix that by sampling the pupil far more
+      densely, but a denser grid makes every merit-function evaluation much slower
+      &mdash; and an optimizer evaluates the merit thousands of times.
+    </p>
+    <p>
+      <em>Vignetting factors</em> are the standard workaround. The surviving region of
+      the pupil is fitted with an ellipse, and during ray tracing the normalized pupil
+      coordinates are remapped so that the sampling grid lands inside that ellipse
+      instead of the full circle. Two numbers shift the ellipse&rsquo;s center and two
+      compress its width and height:
+    </p>
+    <ul>
+      <li><code>Px&prime; = VDX + Px &middot; (1 &minus; VCX)</code></li>
+      <li><code>Py&prime; = VDY + Py &middot; (1 &minus; VCY)</code></li>
+    </ul>
+    <p>
+      <code>VDX, VDY</code> re-center the sampling on the vignetted pupil;
+      <code>VCX, VCY</code> shrink it to fit. The remapped points don&rsquo;t need to
+      match the true boundary exactly &mdash; the goal is simply to keep most rays
+      inside the region that actually passes through the system. With the factors on, a
+      sparse, fast grid samples the surviving pupil well enough to give an accurate spot
+      size, so the merit function stays both cheap and honest.
+    </p>
+
+    <h2>When they&rsquo;re computed &mdash; and why global optimization is hard</h2>
+    <p>
+      The factors are usually computed once, before optimization begins, from the
+      starting design. For <em>local</em> optimization, where the design barely moves,
+      that is fine. <em>Global</em> optimization is the hard case: the search may start
+      far from the final form, and that final form may need vignetting to meet the
+      specification at all. The vignetted pupil you are trying to reach doesn&rsquo;t
+      exist yet, so factors frozen at the start describe the wrong design. As the
+      optimizer reshapes the lens, the true vignetting drifts away from the frozen
+      factors; rays that have become vignetted are simply discarded, and a metric like
+      RMS spot size can even appear to <em>increase</em> after a run meant to reduce it,
+      because the set of rays being averaged changed underneath it.
+    </p>
+    <p>
+      Some codes respond by letting the vignetting factors themselves be optimization
+      variables. The difficulty is that the factors are an abstraction of the pupil, not
+      a physical quantity: there is no guarantee the values an optimizer settles on
+      correspond to a set of clear-aperture diameters any real lens would produce. It
+      then falls to the designer to check, after the fact, that the final diameters
+      actually reproduce those factors &mdash; and if they don&rsquo;t, the result
+      isn&rsquo;t realizable.
+    </p>
+
+    <h2>The LensHH-LT approach: vary the diameters</h2>
+    <p>
+      LensHH-LT takes the other route on both counts. Rather than exposing the
+      vignetting factors, it lets you set the clear-aperture semi-diameter of any
+      surface as a variable. The semi-diameters are the physical quantities, so
+      optimizing them keeps the design in the realizable space by construction &mdash;
+      whatever the optimizer arrives at is, by definition, buildable. The vignetting
+      factors, when enabled, are internal to the engine and are recomputed automatically
+      every time the merit function is evaluated, right after the semi-diameters update.
+      They are always current, and the designer never edits them by hand. When you want
+      the un-approximated truth for a finished design, clear the factors and evaluate a
+      dense grid.
+    </p>
+
+    <h2>A worked example: improving off-axis performance</h2>
+    <p>
+      This example uses vignetting for the second reason &mdash; better off-axis image
+      quality, not a smaller lens. The design is a Cooke triplet: 12.5&nbsp;mm entrance
+      pupil, 50&nbsp;mm focal length (f/4), over a &plusmn;20&deg; field, at the F, d and
+      C lines. It vignettes to control its off-axis aberrations, so the edge of the
+      field is dim &mdash; relative illumination is about 37% at 20&deg;. The merit
+      function accepts that vignetting but bounds it: an illumination operand holds the
+      20&deg; field at or above 37%, alongside the focal length, edge- and
+      center-thickness constraints, an on-axis RMS spot term, and a lateral-color term
+      at the edge.
+    </p>
+    <p>
+      The variables are the curvatures and thicknesses of all three elements, glass
+      substitution on the outer elements and the flint, and &mdash; the point of the
+      exercise &mdash; the Fixed clear-aperture semi-diameters of the two outer
+      elements, S1 (front) and S5 (rear). A Multistart run reduced the merit from 0.303
+      to 2.88&times;10⁻³. The two aperture variables moved in opposite directions: the
+      front semi-diameter grew from 6.50 to 7.14, the rear shrank from 6.50 to 5.83
+      &mdash; an asymmetric split that started from symmetric 6.50 apertures. The
+      glasses swapped from SK16 to N-SK16 on the outer elements and from F4 to SF2 on
+      the flint.
+    </p>
+
+    <div class="case-study-headline">
+      <div class="stat">
+        <span class="stat-value">~105&times;</span>
+        <span class="stat-label">Merit reduction (0.303 &rarr; 2.88&times;10⁻³)</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">21.9 &rarr; 13.4 µm</span>
+        <span class="stat-label">20&deg; RMS spot radius (&minus;39%)</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">~37%</span>
+        <span class="stat-label">Edge illumination, held by an operand</span>
+      </div>
+    </div>
+
+    <h3>The vignetting ellipse tracked the apertures</h3>
+    <p>
+      Because the semi-diameters were the variables, the ellipse the engine fits to the
+      surviving pupil moved with them. At the 20&deg; field the starting ellipse (blue)
+      sits slightly high &mdash; its center above the pupil axis, because the symmetric
+      apertures clip the off-axis cone unevenly. After optimization the ellipse (red)
+      re-centers and widens, tracking the new front-larger / rear-smaller split, while
+      the surviving pupil area &mdash; and thus the ~37% edge illumination &mdash; is
+      essentially unchanged. The designer never touched the ellipse; it followed the
+      apertures, staying consistent with the design at every trial.
+    </p>
+    <figure class="image-single">
+      <img src="/images/case-studies/vignetting-aperture-optimization/vignetting-ellipse-start-vs-opt.png"
+           alt="The 20-degree cat's-eye pupil (solid outline) and its best-fit vignetting ellipse (dashed), before (blue) and after (red) aperture optimization">
+      <figcaption>
+        The 20&deg; vignetted pupil (solid cat&rsquo;s-eye outline) and the best-fit
+        clear-aperture ellipse (dashed) fitted to it, before (blue) and after (red)
+        optimization.
+      </figcaption>
+    </figure>
+
+    <h3>Layout</h3>
+    <div class="image-grid">
+      <figure>
+        <img src="/images/case-studies/vignetting-aperture-optimization/layout-before.png"
+             alt="Cooke triplet layout, starting design with symmetric 6.50 mm outer apertures">
+        <figcaption>Before &mdash; symmetric 6.50 mm outer apertures.</figcaption>
+      </figure>
+      <figure>
+        <img src="/images/case-studies/vignetting-aperture-optimization/layout-after.png"
+             alt="Cooke triplet layout after optimization with asymmetric front-larger, rear-smaller apertures">
+        <figcaption>After &mdash; asymmetric split, front 7.14 / rear 5.83 mm.</figcaption>
+      </figure>
+    </div>
+
+    <h3>Spot diagram (64&times;64 grid, using vignetting factors)</h3>
+    <div class="image-grid">
+      <figure>
+        <img src="/images/case-studies/vignetting-aperture-optimization/spot-before.png"
+             alt="Spot diagram of the starting design across three fields">
+        <figcaption>Before.</figcaption>
+      </figure>
+      <figure>
+        <img src="/images/case-studies/vignetting-aperture-optimization/spot-after.png"
+             alt="Spot diagram after optimization, tighter off-axis spots">
+        <figcaption>After &mdash; tighter off-axis spots.</figcaption>
+      </figure>
+    </div>
+
+    <h3>Spot size (µm)</h3>
+    <table>
+      <thead>
+        <tr><th>Field</th><th class="num">RMS before</th><th class="num">RMS after</th><th class="num">GEO before</th><th class="num">GEO after</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0&deg;</td> <td class="num">6.47</td>  <td class="num">7.25</td>  <td class="num">20.32</td> <td class="num">23.03</td></tr>
+        <tr><td>14&deg;</td><td class="num">19.97</td> <td class="num">16.00</td> <td class="num">71.52</td> <td class="num">39.64</td></tr>
+        <tr><td>20&deg;</td><td class="num">21.91</td> <td class="num">13.42</td> <td class="num">72.03</td> <td class="num">27.57</td></tr>
+      </tbody>
+    </table>
+    <p>
+      Off-axis imaging improves substantially &mdash; the 20&deg; RMS spot drops ~39%
+      and the worst-ray (geometric) extent falls by more than half &mdash; at the cost
+      of a small increase in the on-axis spot, the expected trade for balancing the
+      field.
+    </p>
+
+    <h3>Relative illumination</h3>
+    <figure class="image-single">
+      <img src="/images/case-studies/vignetting-aperture-optimization/relative-illumination.svg"
+           alt="Relative illumination versus field angle, starting versus after Multistart, both converging to about 37 percent at the edge">
+      <figcaption>
+        Both designs converge to ~37% at the edge (held by the illumination operand);
+        the optimized design has slightly higher mid-field illumination.
+      </figcaption>
+    </figure>
+
+    <h2>What&rsquo;s worth taking away</h2>
+    <ul>
+      <li>
+        <strong>Vignetting is a deliberate trade.</strong> Undersizing elements dims the
+        edge of the field, in exchange for a smaller lens or sharper off-axis imaging.
+      </li>
+      <li>
+        <strong>Vignetting factors are a sampling aid, not physics.</strong> They remap
+        pupil sampling onto the surviving cat&rsquo;s-eye so a sparse, fast grid stays
+        accurate &mdash; which is exactly why treating them as free variables can drift
+        away from any realizable set of diameters.
+      </li>
+      <li>
+        <strong>Vary the physical quantity, and keep it current.</strong> Optimizing the
+        semi-diameters keeps every trial buildable, and recomputing the factors each
+        merit evaluation keeps the vignetting model matched to the current design.
+      </li>
+    </ul>
+
+    <div class="case-study-cta">
+      <h3>Run this yourself</h3>
+      <p>
+        Set any surface&rsquo;s semi-diameter as a variable in the Lens Editor, add an
+        illumination operand to bound the edge, and run Multistart &mdash; the
+        vignetting factors update themselves as the apertures move.
+      </p>
+      <a href="/download/lenshh-lt.html" class="btn btn-primary">Download free trial</a>
+      <a href="/products/lenshh-lt.html" class="btn btn-secondary">Back to LensHH-LT</a>
+    </div>
+
+  </article>
+
+  <footer class="footer">
+    <p>&copy; 2026 Synapse Optics. All rights reserved. &nbsp;|&nbsp;
+      <a href="mailto:support@synapseoptics.com">support@synapseoptics.com</a>
+    </p>
+  </footer>
+
+</body>
+</html>
