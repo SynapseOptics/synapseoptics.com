@@ -1,0 +1,7 @@
+# https://synapseoptics.com/robots.txt
+# All crawlers welcome, including AI/LLM crawlers.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://synapseoptics.com/sitemap.xml

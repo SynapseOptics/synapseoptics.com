@@ -1,0 +1,55 @@
+#!/bin/sh
+# Blocks a commit that would leave sitemap.xml out of step with the site.
+#
+# This is the versioned copy of the hook, and the only one — it runs from
+# here directly, so there is nothing to keep in sync with .git/hooks.
+#
+# Git does not enable hooks automatically on clone. Once per clone, run:
+#     install-hooks.bat
+# or the one line it wraps:
+#     git config core.hooksPath hooks
+#
+# Bypass for a one-off commit:  git commit --no-verify
+
+set -u
+
+root=$(git rev-parse --show-toplevel) || exit 0
+
+# Fast path: only pay for a PowerShell start when this commit could
+# actually change the sitemap — a page added/removed/renamed, the sitemap
+# itself, or CNAME (which supplies the canonical host). Unrelated commits
+# (css, js, images) skip the check entirely.
+if ! git diff --cached --name-only --diff-filter=ACMRD |
+     grep -qE '(\.html$|^sitemap\.xml$|^CNAME$)'; then
+    exit 0
+fi
+
+if [ ! -f "$root/build-sitemap.ps1" ]; then
+    echo "pre-commit: build-sitemap.ps1 not found — skipping sitemap check." >&2
+    exit 0
+fi
+
+if command -v pwsh >/dev/null 2>&1; then
+    ps=pwsh
+elif command -v powershell >/dev/null 2>&1; then
+    ps=powershell
+else
+    echo "pre-commit: no PowerShell on PATH — skipping sitemap check." >&2
+    exit 0
+fi
+
+# -PreCommit dates staged pages as today, which is what their <lastmod>
+# becomes once this commit lands. Plain -Check would read their previous
+# commit date, pass, and let the sitemap go stale the moment we commit.
+"$ps" -NoProfile -ExecutionPolicy Bypass \
+      -File "$root/build-sitemap.ps1" -PreCommit -Check
+status=$?
+
+if [ $status -ne 0 ]; then
+    echo "pre-commit: commit blocked — sitemap.xml is out of date." >&2
+    echo "            Run the fix above, then commit again." >&2
+    echo "            To commit anyway: git commit --no-verify" >&2
+    exit 1
+fi
+
+exit 0
