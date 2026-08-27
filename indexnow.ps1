@@ -19,6 +19,11 @@
 
 [CmdletBinding()]
 param(
+    # Submit only these URLs instead of everything in the sitemap. Use it
+    # after editing one page: resubmitting all 14 for a one-page change is
+    # the repeated no-op traffic that gets a domain deprioritised.
+    [string[]]$Urls,
+
     # Print the payload and exit without contacting IndexNow.
     [switch]$DryRun,
 
@@ -69,13 +74,19 @@ $key         = [IO.Path]::GetFileNameWithoutExtension($keyFile.Name)
 $keyLocation = "$baseUrl/$($keyFile.Name)"
 
 # --- urls -------------------------------------------------------------
-$sitemapPath = Join-Path $root 'sitemap.xml'
-if (-not (Test-Path -LiteralPath $sitemapPath)) { Fail "sitemap.xml not found - run build-sitemap.ps1 first." }
+if ($Urls) {
+    $urls = @($Urls)
+    $source = 'command line'
+} else {
+    $sitemapPath = Join-Path $root 'sitemap.xml'
+    if (-not (Test-Path -LiteralPath $sitemapPath)) { Fail "sitemap.xml not found - run build-sitemap.ps1 first." }
 
-[xml]$sitemap = Get-Content -LiteralPath $sitemapPath -Raw
-$urls = @($sitemap.urlset.url | ForEach-Object { $_.loc })
+    [xml]$sitemap = Get-Content -LiteralPath $sitemapPath -Raw
+    $urls = @($sitemap.urlset.url | ForEach-Object { $_.loc })
+    $source = 'sitemap.xml'
+}
 
-if ($urls.Count -eq 0) { Fail "sitemap.xml lists no URLs." }
+if ($urls.Count -eq 0) { Fail "No URLs to submit." }
 
 # IndexNow rejects the whole batch if any URL is off-host, so catch it here
 # where the message can say which one.
@@ -86,7 +97,7 @@ if ($offHost.Count -gt 0) {
 
 Write-Host ""
 Write-Host "  Synapse Optics - IndexNow" -ForegroundColor Cyan
-Write-Host "  $($urls.Count) URLs, host $siteHost" -ForegroundColor White
+Write-Host "  $($urls.Count) URLs from $source, host $siteHost" -ForegroundColor White
 Write-Host "  key $key" -ForegroundColor DarkGray
 Write-Host ""
 
@@ -126,7 +137,10 @@ if ($DryRun) {
 Write-Host "  Submitting to $endpoint ..." -ForegroundColor DarkGray
 
 try {
-    $response = Invoke-WebRequest -Uri $endpoint -Method Post -Body $json `
+    # Send explicit UTF-8 bytes rather than a string: it removes any doubt
+    # about how Windows PowerShell encodes the body before transmission.
+    $response = Invoke-WebRequest -Uri $endpoint -Method Post `
+                    -Body ([Text.Encoding]::UTF8.GetBytes($json)) `
                     -ContentType 'application/json; charset=utf-8' `
                     -UseBasicParsing -TimeoutSec 30
     $code = [int]$response.StatusCode
