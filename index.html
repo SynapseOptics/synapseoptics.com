@@ -70,11 +70,21 @@
       a programmatic interface, and an MCP server so AI agents can drive
       a real ray tracing optical-design tool.
     </p>
+    <p class="subtitle">
+      <strong>LensHH-LT</strong> is out now: a complete sequential design
+      tool for Windows, Linux and Apple&nbsp;Silicon, $385 once, no
+      subscription, free for 45 days.
+    </p>
+    <div class="hero-buttons">
+      <a href="/download/lenshh-lt.html" class="btn btn-primary btn-large">Download Free Trial</a>
+      <a href="/products/lenshh-lt.html" class="btn btn-secondary btn-large">What LensHH-LT does</a>
+      <a href="/buy/lenshh-lt.html" class="btn btn-secondary btn-large">Buy License — $385</a>
+    </div>
   </section>
 
   <!-- What we do -->
   <section class="section">
-    <h2 class="section-title">What we build</h2>
+    <h2 class="section-title">Modern stack, open APIs, and a license you buy once</h2>
     <p class="section-lede">
       Optical-design software built around how engineers and AI agents
       work today: capable enough for serious design work, fully
@@ -94,6 +104,133 @@
         <h3>Affordable, perpetual</h3>
         <p>One-time purchase, two-machine activation, free LensHH-LT for students and academics. No subscriptions.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- Scriptable / agent-driven -->
+  <section class="section section-alt">
+    <h2 class="section-title">Lens design software a script &mdash; or an AI agent &mdash; can drive</h2>
+    <p class="section-lede">
+      The interface an optical design program offers decides what you can
+      automate. Ours offers three, and they are the same program underneath.
+    </p>
+    <div class="prose">
+      <p>
+        Most optical design software was built for a person at a keyboard, and
+        the automation was added afterwards, one exported function at a time.
+        LensHH-LT was written the other way round: the GUI, the command line
+        and the MCP server are three front doors onto one engine, so anything
+        you can do in the interface you can also do in a script, in your own
+        code, or by asking an agent.
+      </p>
+      <p>
+        That last one is the part that is genuinely new. Through the Model
+        Context Protocol server &mdash; tested with Claude Code and Claude
+        Desktop &mdash; an agent can build a lens surface by surface, mark
+        variables, author a merit function, run an optimizer, and read back
+        MTF, spot diagrams and aberration coefficients to decide what to do
+        next. Not a chatbot describing optics: an agent operating the tool
+        and looking at the results.
+      </p>
+      <p>
+        The GUI, CLI and MCP server are open source under the MIT license, so
+        what an agent is allowed to do is something you can read rather than
+        take on trust. <a href="/products/lenshh-lt.html">See what LensHH-LT
+        does &rarr;</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="section">
+    <h2 class="section-title">Free for students and academic research</h2>
+    <p class="section-lede">
+      Optical design is usually taught on software a graduate cannot afford
+      to keep. That seemed worth fixing.
+    </p>
+    <div class="prose">
+      <p>
+        LensHH-LT is free for students and academics: the full program, not a
+        limited teaching build, valid for two years and renewable once. Apply
+        with your institutional email address and that is the whole process.
+        LensHH-Pro will carry an academic discount, announced at launch.
+      </p>
+      <p>
+        For a course, the useful part is usually the scripting rather than the
+        price. A problem set can ship as a file and a script; an assignment can
+        be checked by running it. And a student who learns on it keeps the same
+        tool afterwards, because a perpetual license does not expire when the
+        enrolment does.
+        <a href="/education.html">Apply for an academic license &rarr;</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Case studies -->
+  <section class="section section-alt">
+    <h2 class="section-title">Worked examples, start to finish</h2>
+    <p class="section-lede">
+      Real designs, with the numbers and the wrong turns left in.
+    </p>
+    <div class="cs-grid">
+
+      <div class="cs-card">
+        <a href="/case-studies/spc-bk7-singlet.html">
+          <div class="cs-card-body">
+            <span class="cs-card-tag">LensHH-LT &middot; Synthesis</span>
+            <h3>From one BK7 singlet to a three-element design</h3>
+            <p>
+              Saddle-point construction grows a lens by inserting elements where
+              the merit function has a saddle. Starting from a single biconvex
+              BK7 lens, it finds a singlet plus a cemented doublet.
+            </p>
+            <span class="cs-card-more">Read the case study &rarr;</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="cs-card">
+        <a href="/case-studies/vignetting-aperture-optimization.html">
+          <div class="cs-card-body">
+            <span class="cs-card-tag">LensHH-LT &middot; Optimization</span>
+            <h3>Vignetting factors, and optimizing the apertures instead</h3>
+            <p>
+              What vignetting factors actually are, why they are awkward to carry
+              through a global optimization, and what varying the clear-aperture
+              semi-diameters does for a Cooke triplet instead.
+            </p>
+            <span class="cs-card-more">Read the case study &rarr;</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="cs-card">
+        <a href="/case-studies/gpu-merit-throughput.html">
+          <div class="cs-card-body">
+            <span class="cs-card-tag">LensHH-LT &middot; Performance</span>
+            <h3>One kernel, laptop to H100</h3>
+            <p>
+              The same merit-function kernel measured across a range of hardware,
+              and what actually governs how fast a global search explores.
+            </p>
+            <span class="cs-card-more">Read the case study &rarr;</span>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Closing CTA -->
+  <section class="section section-sm">
+    <div class="upgrade-tease">
+      <h2>Try it on your own design</h2>
+      <p>
+        The trial is the complete program for 45 days, and it opens the Zemax,
+        CODE V, OSLO, OpTaliX and Optiland files you already have &mdash; so
+        the first thing you evaluate it on can be a lens you already know.
+      </p>
+      <a href="/download/lenshh-lt.html" class="btn btn-primary">Download the free trial &rarr;</a>
     </div>
   </section>
 

@@ -818,3 +818,9 @@ img { max-width: 100%; height: auto; }
   padding-top: 14px;
   margin-top: 24px;
 }
+
+/* The hero has only 12px of bottom padding because a hero normally ends with an
+   image or a case tease that brings its own spacing. When the buttons are the last
+   thing in it, they need that room themselves. Scoped to :last-child so the product
+   page, whose buttons are followed by a case tease, is untouched. */
+.hero > .hero-buttons:last-child { margin-bottom: 56px; }
