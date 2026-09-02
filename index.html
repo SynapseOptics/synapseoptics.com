@@ -22,24 +22,49 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Synapse Optics",
-    "legalName": "Synapse Optics",
-    "url": "https://synapseoptics.com/",
-    "logo": "https://synapseoptics.com/images/logo-synapse-optics.png",
-    "description": "Synapse Optics builds modern optical-design software for engineers and AI agents. The LensHH family covers entry-level to professional optical lens design.",
-    "email": "support@synapseoptics.com",
-    "sameAs": [
-      "https://github.com/SynapseOptics"
-    ],
-    "makesOffer": {
-      "@type": "Offer",
-      "itemOffered": {
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://synapseoptics.com/#organization",
+        "name": "Synapse Optics",
+        "legalName": "Synapse Optics",
+        "url": "https://synapseoptics.com/",
+        "logo": "https://synapseoptics.com/images/logo-synapse-optics.png",
+        "description": "Synapse Optics builds modern optical-design software for engineers and AI agents. The LensHH family covers entry-level to professional optical lens design.",
+        "email": "support@synapseoptics.com",
+        "knowsAbout": [
+          "Optical design",
+          "Lens design",
+          "Sequential ray tracing",
+          "Optical aberration analysis"
+        ],
+        "sameAs": [
+          "https://github.com/SynapseOptics"
+        ],
+        "makesOffer": {
+          "@type": "Offer",
+          "itemOffered": {
+            "@id": "https://synapseoptics.com/products/lenshh-lt.html#lenshh-lt"
+          }
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://synapseoptics.com/#website",
+        "url": "https://synapseoptics.com/",
+        "name": "Synapse Optics",
+        "publisher": { "@id": "https://synapseoptics.com/#organization" }
+      },
+      {
         "@type": "SoftwareApplication",
+        "@id": "https://synapseoptics.com/products/lenshh-lt.html#lenshh-lt",
         "name": "LensHH-LT",
-        "url": "https://synapseoptics.com/products/lenshh-lt.html"
+        "url": "https://synapseoptics.com/products/lenshh-lt.html",
+        "applicationCategory": "DesignApplication",
+        "applicationSubCategory": "Optical Design Software",
+        "publisher": { "@id": "https://synapseoptics.com/#organization" }
       }
-    }
+    ]
   }
   </script>
 </head>

@@ -22,45 +22,62 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "LensHH-LT",
-    "alternateName": "LensHH LT",
-    "url": "https://synapseoptics.com/products/lenshh-lt.html",
-    "description": "Sequential optical lens design software for refractive and reflective imaging systems: ray tracing, merit-function optimization, aberration analysis, MTF and spot diagrams, full glass catalogs, and an open MCP server so AI agents can drive the design workflow.",
-    "applicationCategory": "DesignApplication",
-    "applicationSubCategory": "Optical Design Software",
-    "operatingSystem": "Windows 10, Windows 11, Linux, macOS (Apple Silicon)",
-    "softwareRequirements": ".NET 8 runtime (bundled with all desktop downloads); 4 GB RAM minimum, 8 GB recommended",
-    "memoryRequirements": "4 GB",
-    "downloadUrl": "https://github.com/SynapseOptics/LensHH-LT/releases/latest",
-    "installUrl": "https://synapseoptics.com/download/lenshh-lt.html",
-    "softwareHelp": "https://synapseoptics.com/docs/lenshh-lt.html",
-    "featureList": [
-      "Sequential ray tracing for refractive and reflective imaging systems",
-      "Local, multi-start, and basin-hopping optimization",
-      "Seidel aberration analysis, ray fans, and OPD fans",
-      "FFT and geometric MTF, PSF, and wavefront maps",
-      "Spot diagrams, field curvature, distortion, and relative illumination",
-      "Full glass catalogs with glass substitution",
-      "Stock lens matching and substitution",
-      "Import and export Zemax, Code V, OSLO, Optalix, and Optiland files",
-      "GUI, CLI, and MCP server interfaces for AI agent automation"
-    ],
-    "offers": {
-      "@type": "Offer",
-      "price": "385",
-      "priceCurrency": "USD",
-      "url": "https://synapseoptics.com/buy/lenshh-lt.html",
-      "availability": "https://schema.org/InStock",
-      "category": "Perpetual license"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Synapse Optics",
-      "url": "https://synapseoptics.com/"
-    },
-    "isAccessibleForFree": false,
-    "sameAs": "https://github.com/SynapseOptics/LensHH-LT"
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://synapseoptics.com/products/lenshh-lt.html#lenshh-lt",
+        "name": "LensHH-LT",
+        "alternateName": "LensHH LT",
+        "url": "https://synapseoptics.com/products/lenshh-lt.html",
+        "description": "Sequential optical lens design software for refractive and reflective imaging systems: ray tracing, merit-function optimization, aberration analysis, MTF and spot diagrams, full glass catalogs, and an open MCP server so AI agents can drive the design workflow.",
+        "applicationCategory": "DesignApplication",
+        "applicationSubCategory": "Optical Design Software",
+        "operatingSystem": "Windows 10, Windows 11, Linux, macOS (Apple Silicon)",
+        "softwareRequirements": ".NET 8 runtime (bundled with all desktop downloads); 4 GB RAM minimum, 8 GB recommended",
+        "memoryRequirements": "4 GB",
+        "downloadUrl": "https://github.com/SynapseOptics/LensHH-LT/releases/latest",
+        "installUrl": "https://synapseoptics.com/download/lenshh-lt.html",
+        "softwareHelp": "https://synapseoptics.com/docs/lenshh-lt.html",
+        "featureList": [
+          "Sequential ray tracing for refractive and reflective imaging systems",
+          "Local, multi-start, and basin-hopping optimization",
+          "Seidel aberration analysis, ray fans, and OPD fans",
+          "FFT and geometric MTF, PSF, and wavefront maps",
+          "Spot diagrams, field curvature, distortion, and relative illumination",
+          "Full glass catalogs with glass substitution",
+          "Stock lens matching and substitution",
+          "Import and export Zemax, Code V, OSLO, Optalix, and Optiland files",
+          "GUI, CLI, and MCP server interfaces for AI agent automation"
+        ],
+        "offers": {
+          "@type": "Offer",
+          "price": "385",
+          "priceCurrency": "USD",
+          "url": "https://synapseoptics.com/buy/lenshh-lt.html",
+          "availability": "https://schema.org/InStock",
+          "category": "Perpetual license"
+        },
+        "publisher": {
+          "@id": "https://synapseoptics.com/#organization"
+        },
+        "isAccessibleForFree": false,
+        "sameAs": [
+          "https://github.com/SynapseOptics/LensHH-LT"
+        ]
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://synapseoptics.com/#organization",
+        "name": "Synapse Optics",
+        "legalName": "Synapse Optics",
+        "url": "https://synapseoptics.com/",
+        "logo": "https://synapseoptics.com/images/logo-synapse-optics.png",
+        "email": "support@synapseoptics.com",
+        "sameAs": [
+          "https://github.com/SynapseOptics"
+        ]
+      }
+    ]
   }
   </script>
 </head>
