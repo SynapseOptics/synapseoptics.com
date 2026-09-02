@@ -157,8 +157,57 @@
     </div>
   </section>
 
-  <!-- Zemax / CODE V compatibility -->
+  <!-- Optimization -->
   <section class="section section-alt">
+    <h2 class="section-title">Optimization: damped least squares, PSD, multistart and basin hopping</h2>
+    <p class="section-lede">
+      Four optimizers, plus the constructive tools that change what a design
+      is rather than only refining what it already is.
+    </p>
+    <div class="prose">
+      <p>
+        Local optimization is damped least squares. Above it sit multistart,
+        global search and basin hopping for when the design has to leave the
+        basin it started in. Alongside those are tools that alter the
+        structure of the lens: splitting an element in two, searching for a
+        useful aspheric surface, and synthesis by saddle-point construction,
+        which grows a design by inserting elements at the saddle points of
+        the merit function. Every variable takes its own minimum and maximum,
+        so an optimizer explores shapes you could actually build.
+      </p>
+      <p>
+        Damped least squares adds one damping value to every variable&rsquo;s
+        diagonal term, and that single number is standing in for something
+        that is not single &mdash; each variable&rsquo;s own curvature. In a
+        real lens those curvatures differ by orders of magnitude, so whatever
+        value steadies a strongly nonlinear surface curvature will throttle a
+        nearly linear airspace. The usual symptom is a run that crawls, or
+        reports convergence while still some way from the minimum.
+      </p>
+      <p>
+        As an alternative, LensHH-LT offers <strong>PSD II</strong> and
+        <strong>PSD III</strong> &mdash; the pseudo-second-derivative methods
+        of D. C. Dilworth, which estimate each variable&rsquo;s curvature
+        directly and put that on the diagonal instead of a shared damping
+        constant. The estimate costs almost nothing, since it comes from
+        comparing derivatives already computed on two successive iterations.
+        Damped least squares remains the default; PSD is a setting you select
+        per run, in the GUI, the CLI or over MCP. The
+        <a href="/docs/lenshh-lt-help.html#optimization">user guide</a> works through what
+        each one does and when it helps.
+      </p>
+      <p class="prose-note">
+        D. C. Dilworth, &ldquo;Pseudo-second-derivative matrix and its
+        application to automatic lens design,&rdquo; <em>Appl. Opt.</em>
+        <strong>17</strong>, 3372 (1978); &ldquo;Improved convergence with the
+        pseudo-second-derivative (PSD) optimization method,&rdquo;
+        <em>Proc. SPIE</em> <strong>399</strong>, 159 (1983).
+      </p>
+    </div>
+  </section>
+
+  <!-- Zemax / CODE V compatibility -->
+  <section class="section">
     <h2 class="section-title">Open Zemax and CODE V files without a conversion step</h2>
     <p class="section-lede">
       Existing designs are the reason most people cannot try a new tool.
@@ -190,7 +239,7 @@
   </section>
 
   <!-- Trial and licensing -->
-  <section class="section">
+  <section class="section section-alt">
     <h2 class="section-title">45 days free, then a $385 perpetual license</h2>
     <p class="section-lede">
       The trial is the full program. Nothing is disabled, watermarked,
@@ -219,7 +268,7 @@
   </section>
 
   <!-- Platforms -->
-  <section class="section section-alt">
+  <section class="section">
     <h2 class="section-title">Runs on Windows, Linux, and Apple Silicon Macs</h2>
     <p class="section-lede">
       One engine, three platforms, and the same file format on all of them.
@@ -243,7 +292,7 @@
   </section>
 
   <!-- MCP / AI agents -->
-  <section class="section">
+  <section class="section section-alt">
     <h2 class="section-title">Drive it from Claude or another AI agent over MCP</h2>
     <p class="section-lede">
       An optical-design program an agent can actually operate, rather than
@@ -269,7 +318,7 @@
   </section>
 
   <!-- Catalogs -->
-  <section class="section section-alt">
+  <section class="section">
     <h2 class="section-title">1,515 glasses and 7,600 stock lenses, included</h2>
     <p class="section-lede">
       Catalog data ships with the program. There is nothing to license
