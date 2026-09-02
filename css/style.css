@@ -796,3 +796,16 @@ img { max-width: 100%; height: auto; }
 .cs-card h3 { font-size: 1.15rem; margin: 0 0 8px; color: var(--color-text); }
 .cs-card p { font-size: .93rem; color: var(--color-text-light); margin: 0 0 16px; flex: 1; }
 .cs-card-more { font-weight: 600; color: var(--color-accent); }
+
+/* Body copy inside a marketing section. The section container is 1100px, which is
+   far too wide to read a paragraph across, so prose gets its own measure. */
+.prose { max-width: 760px; margin: 0 auto; }
+.prose p { margin: 0 0 18px; line-height: 1.75; color: var(--color-text-light); }
+.prose p:last-child { margin-bottom: 0; }
+.prose strong { color: var(--color-text); }
+.prose code {
+  background: var(--color-code-bg);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: .92em;
+}

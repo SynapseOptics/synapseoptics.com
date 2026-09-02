@@ -112,6 +112,11 @@
 
   <!-- Features -->
   <section class="section">
+    <h2 class="section-title">Ray tracing, optimization and aberration analysis in one tool</h2>
+    <p class="section-lede">
+      Everything a sequential design job needs, from the first paraxial
+      layout through to the MTF you hand to manufacturing.
+    </p>
     <div class="features-grid">
       <div class="feature-card">
         <h3>Ray Tracing</h3>
@@ -126,12 +131,12 @@
         <p>FFT MTF, spot diagrams, ray fans, OPD fans, Seidel coefficients, distortion, field curvature, and more.</p>
       </div>
       <div class="feature-card">
-        <h3>Glass Catalogs</h3>
-        <p>Full SCHOTT, OHARA, CDGM, HOYA, and SUMITA glass catalogs with automatic glass substitution.</p>
+        <h3>Glass and Stock Lens Catalogs</h3>
+        <p>1,515 glasses across ten catalogs &mdash; SCHOTT, OHARA, CDGM, HOYA, SUMITA, Corning, LightPath &mdash; with per-surface glass substitution, plus 7,623 stock lenses from Edmund Optics, Thorlabs and Ross Optical.</p>
       </div>
       <div class="feature-card">
-        <h3>File Compatibility</h3>
-        <p>Import and export Zemax, Code V, OSLO, Optalix, and Optiland lens files.</p>
+        <h3>Zemax and CODE V File Compatibility</h3>
+        <p>Import and export Zemax, CODE V, OSLO, OpTaliX and Optiland lens files, with glass names resolved against your catalogs in both directions.</p>
       </div>
       <div class="feature-card">
         <h3>AI-Ready: API, CLI &amp; MCP Server</h3>
@@ -146,9 +151,148 @@
         <p>GUI, CLI, and MCP server source code are open source under the MIT license. Inspect, extend, and integrate with confidence.</p>
       </div>
       <div class="feature-card">
-        <h3>45-Day Free Trial</h3>
-        <p>Full-featured trial with no limitations. Just provide your email to get started.</p>
+        <h3>45-Day Free Trial, Perpetual License</h3>
+        <p>Full-featured trial with no limitations &mdash; just provide your email. A license is $385 once, not a subscription, and runs offline after a one-time activation.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- Zemax / CODE V compatibility -->
+  <section class="section section-alt">
+    <h2 class="section-title">Open Zemax and CODE V files without a conversion step</h2>
+    <p class="section-lede">
+      Existing designs are the reason most people cannot try a new tool.
+      LensHH-LT reads and writes the formats you already have.
+    </p>
+    <div class="prose">
+      <p>
+        Import and export run in both directions for Zemax (<code>.zmx</code>),
+      CODE V (<code>.seq</code>), OSLO (<code>.len</code>),
+      OpTaliX (<code>.otx</code>) and Optiland (<code>.json</code>).
+      A file brings its surfaces, thicknesses, materials, conics and
+      even-order aspheric terms with it, along with the wavelengths, fields
+      and aperture the original design was specified at &mdash; so a design
+      opens as the lens its author drew, not as a shape you have to rebuild
+      and re-check.
+    </p>
+    <p>
+      Glass names are the part that usually breaks in translation, because
+      every program spells them differently: the catalogs&rsquo;
+      <code>N-BK7</code> and <code>H-ZF52</code> are <code>NBK7</code> and
+      <code>HZF52</code> in CODE V, and a name no catalog claims leaves a
+      surface with no material at all. Names are resolved against your loaded
+      catalogs on the way in and written in each format&rsquo;s own spelling
+      on the way out, so a lens survives the round trip with its glasses
+        intact. Where a material genuinely cannot be resolved, LensHH-LT says
+        so rather than quietly treating the surface as air.
+      </p>
+    </div>
+  </section>
+
+  <!-- Trial and licensing -->
+  <section class="section">
+    <h2 class="section-title">45 days free, then a $385 perpetual license</h2>
+    <p class="section-lede">
+      The trial is the full program. Nothing is disabled, watermarked,
+      or held back for the paid version.
+    </p>
+    <div class="prose">
+      <p>
+        Download it, give an email address, and you have 45 days of the
+        complete tool &mdash; every optimizer, every analysis, every catalog,
+        the CLI and the MCP server included. There is no feature matrix
+        separating a trial from a licensed copy, because there is only one
+        build.
+      </p>
+      <p>
+        A license is <strong>$385, paid once</strong>. Not a subscription:
+        the version you buy keeps working, and it keeps working if you stop
+        paying us anything ever again, because there is nothing further to
+        pay. That covers activation on up to two machines &mdash; a desktop
+        and a laptop, typically &mdash; with a year of updates and a year of
+        email support included. Activating is a one-time online step; after
+        that your license is verified on your own machine, so LensHH-LT runs
+        with no network connection and there is no floating-license daemon
+        to install on your network or check seats out of.
+      </p>
+    </div>
+  </section>
+
+  <!-- Platforms -->
+  <section class="section section-alt">
+    <h2 class="section-title">Runs on Windows, Linux, and Apple Silicon Macs</h2>
+    <p class="section-lede">
+      One engine, three platforms, and the same file format on all of them.
+    </p>
+    <div class="prose">
+      <p>
+        Windows 10 and 11 get an installer that bundles the .NET 8 runtime, so
+        there is no prerequisite to chase down. Linux ships as a portable
+        AppImage that runs on Ubuntu, Fedora and Arch without being installed.
+        macOS 12 and later runs as a signed app bundle on Apple Silicon
+        &mdash; M1 or later; Intel Macs are not supported.
+      </p>
+      <p>
+        GPU acceleration is available on Windows and Linux, where merit-function
+        evaluation can run on an NVIDIA card. macOS is CPU-only, since there is
+        no CUDA on that platform. Everything else is identical across the three,
+        and a <code>.lhlt</code> file written on one opens unchanged on the
+        others.
+      </p>
+    </div>
+  </section>
+
+  <!-- MCP / AI agents -->
+  <section class="section">
+    <h2 class="section-title">Drive it from Claude or another AI agent over MCP</h2>
+    <p class="section-lede">
+      An optical-design program an agent can actually operate, rather than
+      one it can only describe.
+    </p>
+    <div class="prose">
+      <p>
+        LensHH-LT ships an open Model Context Protocol server, tested with
+        Claude Code and Claude Desktop. Through it an agent can build a system
+        surface by surface, set variables and constraints, author a merit
+        function, run any of the optimizers, pull back spot diagrams, MTF,
+        ray fans and Seidel coefficients, and render layouts and plots to look
+        at &mdash; the same operations available in the GUI, exposed as tools
+        an agent can call.
+      </p>
+      <p>
+        The GUI, the CLI and the MCP server are open source under the MIT
+        license, so you can read exactly what a tool call does before you let
+        one run, extend the server with your own tools, or wire LensHH-LT into
+        a pipeline that has nothing to do with us.
+      </p>
+    </div>
+  </section>
+
+  <!-- Catalogs -->
+  <section class="section section-alt">
+    <h2 class="section-title">1,515 glasses and 7,600 stock lenses, included</h2>
+    <p class="section-lede">
+      Catalog data ships with the program. There is nothing to license
+      separately or download from a vendor portal.
+    </p>
+    <div class="prose">
+      <p>
+        Ten catalogs ship with the program, covering SCHOTT, OHARA, CDGM,
+        HOYA, SUMITA, Corning and LightPath &mdash; 1,515 glasses in all,
+        model glasses for working from patent data included. Glass
+        substitution searches those catalogs
+        during optimization, per surface, so a design can be steered toward
+        the glasses you can actually buy rather than toward an index and Abbe
+        number nobody melts.
+      </p>
+      <p>
+        The stock-lens catalog holds 7,623 real parts from Edmund Optics,
+        Thorlabs and Ross Optical. You can search it by focal length, diameter
+        and type, drop a catalog part straight into a design, or ask which
+        stock lenses come closest to an element you have just designed &mdash;
+        which is the difference between a design you can order this week and
+        one that needs custom glass.
+      </p>
     </div>
   </section>
 
