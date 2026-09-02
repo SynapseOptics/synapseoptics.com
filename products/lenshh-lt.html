@@ -208,8 +208,59 @@
     </div>
   </section>
 
-  <!-- Zemax / CODE V compatibility -->
+  <!-- Aberration coefficients -->
   <section class="section">
+    <h2 class="section-title">Aberration coefficients: Seidel, and fifth- and seventh-order Buchdahl</h2>
+    <p class="section-lede">
+      Where the aberration is generated, surface by surface &mdash; not only
+      what the spot looks like once every surface has had its turn.
+    </p>
+    <div class="prose">
+      <p>
+        The Seidel analysis reports the third-order coefficients per surface
+        and as system totals: spherical aberration, coma, astigmatism, field
+        curvature, distortion, and axial and lateral colour. Per surface is
+        the useful part. A spot diagram tells you the design is soft; the
+        coefficients tell you which surface is making it soft, which is the
+        difference between guessing at a fix and aiming one.
+      </p>
+      <p>
+        Above third order, LensHH-LT carries <strong>Buchdahl/Rimmer fifth-
+        and seventh-order coefficients</strong> &mdash; fifth-order spherical,
+        two forms of fifth-order coma, three of oblique spherical aberration,
+        three of elliptical coma, fifth-order astigmatism, Petzval and
+        distortion, and seventh-order spherical. They are available as
+        merit-function operands, each over a surface range or across the whole
+        system, so a design can be optimized against a named high-order
+        aberration rather than against the blur it eventually contributes to.
+        Aspheric surfaces are included, conic and even-order terms both.
+      </p>
+      <p>
+        On top of those sits <strong>Robb&rsquo;s analytic merit function</strong>,
+        which predicts the RMS spot radius from the coefficients in closed form,
+        with no rays traced at all. Because it costs a coefficient pass instead
+        of a pupil of real rays, it is quick enough to screen many candidate
+        designs &mdash; and one operand, <code>PRMSA</code>, covers every field
+        and wavelength in the system at once.
+      </p>
+      <p>
+        These are estimates from a truncated series, referenced to the paraxial
+        image plane, and they are not a replacement for tracing rays: the
+        <a href="/docs/lenshh-lt-help.html#prms-rms-spot-size-from-the-aberration-coefficients">user guide</a> is
+        explicit about what they do and do not account for. Ray-traced spot
+        diagrams, MTF, wavefront maps and OPD fans are all there for when the
+        answer has to be the real one.
+      </p>
+      <p class="prose-note">
+        Coefficients follow Rimmer (1962, University of Rochester Summer
+        School in Optics). The analytic spot estimate follows Robb,
+        <em>JOSA</em> <strong>66</strong>, 1037 (1976).
+      </p>
+    </div>
+  </section>
+
+  <!-- Zemax / CODE V compatibility -->
+  <section class="section section-alt">
     <h2 class="section-title">Open Zemax and CODE V files without a conversion step</h2>
     <p class="section-lede">
       Existing designs are the reason most people cannot try a new tool.
@@ -241,7 +292,7 @@
   </section>
 
   <!-- Trial and licensing -->
-  <section class="section section-alt">
+  <section class="section">
     <h2 class="section-title">45 days free, then a $385 perpetual license</h2>
     <p class="section-lede">
       The trial is the full program. Nothing is disabled, watermarked,
@@ -270,7 +321,7 @@
   </section>
 
   <!-- Platforms -->
-  <section class="section">
+  <section class="section section-alt">
     <h2 class="section-title">Runs on Windows, Linux, and Apple Silicon Macs</h2>
     <p class="section-lede">
       One engine, three platforms, and the same file format on all of them.
@@ -294,7 +345,7 @@
   </section>
 
   <!-- MCP / AI agents -->
-  <section class="section section-alt">
+  <section class="section">
     <h2 class="section-title">Drive it from Claude or another AI agent over MCP</h2>
     <p class="section-lede">
       An optical-design program an agent can actually operate, rather than
@@ -320,7 +371,7 @@
   </section>
 
   <!-- Catalogs -->
-  <section class="section">
+  <section class="section section-alt">
     <h2 class="section-title">1,515 glasses and 7,600 stock lenses, included</h2>
     <p class="section-lede">
       Catalog data ships with the program. There is nothing to license
